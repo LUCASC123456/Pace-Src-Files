@@ -108,6 +108,20 @@ var timeBeforeCanGrappleAgainRef : float
 @onready var fallGravity : float = (-2.0 * jumpHeight) / (jumpTimeToFall * jumpTimeToFall)
 @export var wallGravityMultiplier : float
 
+#collision variables
+@export_group("collision variables")
+@export var health : int
+@onready var remainingHealth : int = health
+@onready var canWallDamage : bool = true
+@onready var canFloorDamage : bool = true
+@onready var canCeilingDamage : bool = true
+@export var mass : int
+var momentum : Vector3
+var force : Vector3
+var collisionRadius : Vector3
+var torque : Vector3
+const damageThresholdMomentum = 4000
+
 #references variables
 @onready var cameraHolder = $CameraHolder
 @onready var standHitbox = $standingHitbox
@@ -169,7 +183,7 @@ func _ready():
 	else:
 		pass
 	
-	grappleHookCheck.target_position = Vector3(-grapHookMaxDist, 0.0, 0.0) #-grapHookMaxDist pour être bien dans la direction du joueur
+	grappleHookCheck.target_position = Vector3(-grapHookMaxDist, 0.0, 0.0) #grapHookMaxDist
 	if grapHookRope.visible: 
 		grapHookRope.visible = false
 	else:
@@ -177,7 +191,7 @@ func _ready():
 	
 	#set the mesh scale of the character
 	mesh.scale = Vector3(1.0, 1.0, 1.0)
-	
+
 func _process(_delta):
 	#the behaviours that is preferable to check every "visual" frame
 	
@@ -197,7 +211,7 @@ func _physics_process(delta):
 	
 	grappleHookManagement(delta)
 	
-	collisionHandling()
+	collisionHandling(delta)
 	
 	move_and_slide()
 
@@ -389,15 +403,15 @@ func applies(delta):
 	if !is_on_floor():
 		#modify the type of gravity to apply to the character, depending of his velocity (when jumping jump gravity, otherwise fall gravity)
 		if velocity.y >= 0.0:
-				if currentState != states.GRAPPLE: 
-					velocity.y += jumpGravity * delta
-				else:
-					pass
-					
-				if currentState != states.SLIDE and currentState != states.DASH and currentState != states.GRAPPLE: 
-					currentState = states.JUMP
-				else:
-					pass
+			if currentState != states.GRAPPLE: 
+				velocity.y += jumpGravity * delta
+			else:
+				pass
+				
+			if currentState != states.SLIDE and currentState != states.DASH and currentState != states.GRAPPLE: 
+				currentState = states.JUMP
+			else:
+				pass
 		else: 
 			if currentState != states.GRAPPLE: 
 				velocity.y += fallGravity * delta
@@ -1029,11 +1043,13 @@ func grappleStateChanges():
 			pass
 	else:
 		pass
-			
-func collisionHandling():
+
+func collisionHandling(time):
 	#this function handle the collisions, but in this case, only the collision with a wall, to detect if the character can wallrun
 	if is_on_wall():
-		var lastCollision = get_slide_collision(0)
+		var lastCollision = get_last_slide_collision()
+		canFloorDamage = true
+		canCeilingDamage = true
 		
 		if lastCollision:
 			var collidedBody = lastCollision.get_collider()
@@ -1044,8 +1060,97 @@ func collisionHandling():
 				canWallRun = true 
 			else:
 				canWallRun = false
+				
+				if canWallDamage:
+					if sqrt(momentum.x**2 + momentum.z**2) >= damageThresholdMomentum:
+						force = -momentum/time
+						collisionRadius = abs(global_position - lastCollision.get_position())
+						remainingHealth -= (sqrt(force.x**2 + force.z**2))
+						canWallDamage = false
+						
+						if remainingHealth <= 0:
+							torque = Vector3(-force.z*collisionRadius.y, force.y*collisionRadius.x*collisionRadius.z, -force.x*collisionRadius.y)
+							remainingHealth = 0
+							die()
+						else:
+							hud.displayBlood(0.5*(remainingHealth)/health)
+					else:
+						pass
+				else:
+					pass
+		else:
+			pass
+			
+	elif is_on_floor():
+		var lastCollision = get_last_slide_collision()
+		canWallDamage = true
+		canCeilingDamage = true
+		
+		if lastCollision:
+			var collidedBody = lastCollision.get_collider()
+			var layer = collidedBody.collision_layer
+			
+			if layer & (1 << 4-1) != 0:
+				pass
+			else:
+				if canFloorDamage:
+					if abs(momentum.y) >= damageThresholdMomentum:
+						force = -momentum/time
+						collisionRadius = abs(global_position - lastCollision.get_position())
+						remainingHealth -= abs(force.y)
+						canFloorDamage = false
+						
+						if remainingHealth <= 0:
+							torque = Vector3(-force.z*collisionRadius.y, 0, force.x*collisionRadius.y)
+							remainingHealth = 0
+							die()
+						else:
+							hud.displayBlood(0.5*(remainingHealth)/health)
+					else:
+						pass
+				else:
+					pass
+		else:
+			pass
+			
+	elif is_on_ceiling():
+		var lastCollision = get_last_slide_collision()
+		canWallDamage = true
+		canFloorDamage = true
+		
+		if lastCollision:
+			if canCeilingDamage:
+				if abs(momentum.y) >= damageThresholdMomentum:
+					force = -momentum/time
+					collisionRadius = abs(global_position - lastCollision.get_position())
+					remainingHealth -= abs(force.y)
+					canCeilingDamage = false
+					
+					if remainingHealth <= 0:
+						torque = Vector3(-force.z*collisionRadius.y, 0, force.x*collisionRadius.y)
+						remainingHealth = 0
+						die()
+					else:
+						hud.displayBlood(0.5*(remainingHealth)/health)
+				else:
+					pass
+			else:
+				pass
 		else:
 			pass
 	else:
-		pass
-	
+		canWallDamage = true
+		canFloorDamage = true
+		canCeilingDamage = true
+		
+	momentum = mass*velocity
+
+func die():
+	var deadBody = preload("res://Scenes/DeadBodyScene.tscn").instantiate()
+	get_parent().add_child(deadBody)
+	deadBody.transform = get_global_transform()
+	deadBody.global_position = global_position
+	deadBody.global_rotation = cameraHolder.camera.global_rotation
+	deadBody.linear_velocity = velocity
+	deadBody.apply_torque(torque)
+	queue_free()

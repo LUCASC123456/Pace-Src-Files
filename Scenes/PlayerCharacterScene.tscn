@@ -1,10 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://bwggrf7sbmkcv"]
+[gd_scene load_steps=31 format=3 uid="uid://bwggrf7sbmkcv"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/PlayerCharacterScript.gd" id="1_5dbx1"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/CameraScript.gd" id="2_x12n0"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/HUDScript.gd" id="4_f4mp1"]
 [ext_resource type="FontFile" uid="uid://bwr73i28ligrq" path="res://Arts/Fonts/Ticketing.ttf" id="5_kleop"]
 [ext_resource type="PackedScene" uid="uid://dh3ln04ijax8n" path="res://Scenes/PauseMenuScene.tscn" id="6_3wmtt"]
+[ext_resource type="Shader" path="res://Scenes/PlayerCharacterScene.gdshader" id="6_eg5bf"]
+[ext_resource type="Texture2D" uid="uid://da3woq4q3j1cr" path="res://Arts/Textures/blood_splatter.png" id="7_0m3tf"]
 [ext_resource type="Texture2D" uid="uid://djoe54ae3gp0a" path="res://Arts/Textures/kenney_prototype_textures/orange/texture_06.png" id="7_jclwn"]
 [ext_resource type="Shader" path="res://Arts/Shaders/SpeedLinesShader.gdshader" id="12_8u6b8"]
 
@@ -123,19 +125,36 @@ shader_parameter/mask_edge = 0.8
 shader_parameter/animation_speed = 20.0
 shader_parameter/noise = SubResource("NoiseTexture2D_78nux")
 
-[sub_resource type="LabelSettings" id="LabelSettings_rpyl3"]
-line_spacing = 5.0
-font = ExtResource("5_kleop")
-font_size = 20
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_alyi7"]
+shader = ExtResource("6_eg5bf")
+shader_parameter/radius = 0.5
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ga166"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_top = 5
+border_width_bottom = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_02rm5"]
 line_spacing = 5.0
 font = ExtResource("5_kleop")
-font_size = 20
+font_size = 25
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe3yk"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.196078)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13xfk"]
+bg_color = Color(0.752941, 0.172549, 0.172549, 1)
 
 [node name="PlayerCharacter" type="CharacterBody3D" groups=["PlayerCharacter"]]
 collision_layer = 2
@@ -181,6 +200,8 @@ timeBeforeCanGrappleAgain = 0.5
 grappleLaunchJumpVelocity = 8.0
 downDirJump = true
 wallGravityMultiplier = 0.7
+health = 500000
+mass = 75
 
 [node name="CameraHolder" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.540581, 0)
@@ -318,7 +339,7 @@ width = 2.0
 points = PackedVector2Array(-5, 0, -15, 0)
 width = 2.0
 
-[node name="SpeedLinesContrainer" type="ColorRect" parent="HUD"]
+[node name="SpeedLinesContainer" type="ColorRect" parent="HUD"]
 visible = false
 texture_filter = 1
 material = SubResource("ShaderMaterial_fk5op")
@@ -330,35 +351,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+[node name="BloodContainer" type="TextureRect" parent="HUD"]
+material = SubResource("ShaderMaterial_alyi7")
 layout_mode = 0
-offset_left = 875.0
-offset_top = 605.0
-offset_right = 1140.0
-offset_bottom = 635.0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("7_0m3tf")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/HBoxContainer"]
-layout_mode = 2
-
-[node name="SpeedLabel" type="Label" parent="HUD/HBoxContainer/VBoxContainer"]
+[node name="SpeedUI" type="Label" parent="HUD"]
 texture_filter = 1
-layout_mode = 2
+layout_mode = 0
+offset_left = 902.0
+offset_top = 538.0
+offset_right = 1122.0
+offset_bottom = 618.0
 theme_override_font_sizes/font_size = 40
-text = "SPEED : 
-"
-label_settings = SubResource("LabelSettings_rpyl3")
-vertical_alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HUD/HBoxContainer"]
-layout_mode = 2
-
-[node name="SpeedLabelText" type="Label" parent="HUD/HBoxContainer/VBoxContainer2"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_ga166")
 text = "..................."
 label_settings = SubResource("LabelSettings_02rm5")
+horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HealthUI" type="ProgressBar" parent="HUD"]
+layout_mode = 0
+offset_left = 907.0
+offset_top = 498.0
+offset_right = 1117.0
+offset_bottom = 528.0
+theme_override_styles/background = SubResource("StyleBoxFlat_qe3yk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_13xfk")
+max_value = 500000.0
+value = 500000.0
+show_percentage = false
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_3wmtt")]
 visible = false

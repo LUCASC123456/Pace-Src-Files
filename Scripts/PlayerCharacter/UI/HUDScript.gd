@@ -4,19 +4,27 @@ extends Control
 class_name HUD
 
 #references variables
-@onready var velocityLabelText = $HBoxContainer/VBoxContainer2/SpeedLabelText
-@onready var speedLinesContainer = $SpeedLinesContrainer
+@onready var player = $".."
+@onready var speedUI = $SpeedUI
+@onready var healthUI = $HealthUI
+@onready var speedLinesContainer = $SpeedLinesContainer
+@onready var bloodContainer = $BloodContainer
 
 func _ready():
+	healthUI.max_value = player.health
 	speedLinesContainer.visible = false #the speed lines will only be displayed when the character will dashing
 	
 func displayVelocity(velocity : int):
 	#this function manage the current velocity displayment
-	velocityLabelText.set_text(str(velocity)+" M/S")
+	speedUI.set_text("SPEED: "+str(velocity)+" M/S")
+	healthUI.value = player.remainingHealth
 	
 func displaySpeedLines(dashTime):
 	#this function manage the speed lignes displayment (only when the character is dashing)
 	speedLinesContainer.visible = true 
 	#when the dash is finished, hide the speed lines
 	await get_tree().create_timer(dashTime).timeout
-	speedLinesContainer.visible = false 
+	speedLinesContainer.visible = false
+
+func displayBlood(radius):
+	bloodContainer.material.set_shader_parameter("radius", radius)
