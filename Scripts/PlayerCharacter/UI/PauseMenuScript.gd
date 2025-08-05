@@ -30,7 +30,7 @@ func _process(_delta):
 		pass
 			
 func setPauseMenu(value : bool, enable : bool):
-	#set the pause penu behaviour (visibility, mouse control, ...)
+	#set the pause menu behaviour (visibility, mouse control, ...)
 	visible = value
 	mouseFree = value
 	pauseMenuEnabled = enable
