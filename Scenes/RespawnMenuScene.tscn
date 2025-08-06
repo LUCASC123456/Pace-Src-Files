@@ -78,7 +78,6 @@ custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontFile_dvunk")
 theme_override_font_sizes/font_size = 55
-disabled = true
 text = "Respawn"
 
 [connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/RespawnButton" to="." method="_on_respawn_button_pressed"]

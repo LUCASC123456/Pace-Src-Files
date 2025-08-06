@@ -18,21 +18,15 @@ func _process(_delta):
 				setPauseMenu(false, false)
 			else: 
 				setPauseMenu(true, true)
-			
-			#handle mouse mode
-			if mouseFree: 
-				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			else: 
-				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			pass
 	else:
 		pass
-			
+		
 func setPauseMenu(value : bool, enable : bool):
 	#set the pause menu behaviour (visibility, mouse control, ...)
 	visible = value
-	mouseFree = value
+	mouseFree = enable
 	pauseMenuEnabled = enable
 	
 	#stop game process when the pause menu is enabled
@@ -41,13 +35,14 @@ func setPauseMenu(value : bool, enable : bool):
 	else: 
 		Engine.time_scale = 1.0
 	
+	#handle mouse mode
+	if mouseFree: 
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else: 
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 func _on_resume_button_pressed():
 	#close pause menu
-	
-	#there is a bug here, i don't know why, but the mouse keep being free when the pause menu is closed via the resume button
-	#you can set the mouse to not free again by closing the menu directly with the key input
-	#if you know how to resolve that issue, don't hesitate to make a post about it on the discussions tab of the project's Github repository
-	
 	setPauseMenu(false, false)
 	
 func _on_options_button_pressed():
