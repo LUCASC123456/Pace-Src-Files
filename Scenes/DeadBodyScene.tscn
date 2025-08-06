@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0w85rotupx0v"]
+
+[ext_resource type="Shader" path="res://Scenes/DeadBodyScene.gdshader" id="1_5eie6"]
+[ext_resource type="Texture2D" uid="uid://da3woq4q3j1cr" path="res://Arts/Textures/blood_splatter.png" id="2_5myoq"]
+[ext_resource type="PackedScene" uid="uid://dp1h46aky84if" path="res://Scenes/RespawnMenuScene.tscn" id="3_vnoxy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xl51s"]
+albedo_color = Color(0.196078, 0.223529, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6add2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k58tb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jt1uq"]
+shader = ExtResource("1_5eie6")
+shader_parameter/radius = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="DeadBody" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
+collision_mask = 13
+mass = 75.0
+inertia = Vector3(10.25, 9, 10.25)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+material_override = SubResource("StandardMaterial3D_xl51s")
+mesh = SubResource("CapsuleMesh_6add2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_k58tb")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.541, 0)
+cull_mask = 1047553
+current = true
+fov = 100.0
+near = 0.01
+far = 1000.0
+
+[node name="RespawnMenuTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="BloodContainer" type="TextureRect" parent="HUD"]
+material = SubResource("ShaderMaterial_jt1uq")
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_5myoq")
+
+[node name="RespawnMenu" parent="." instance=ExtResource("3_vnoxy")]
+
+[connection signal="timeout" from="RespawnMenuTimer" to="RespawnMenu" method="_on_respawn_menu_timer_timeout"]
