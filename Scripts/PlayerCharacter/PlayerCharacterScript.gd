@@ -653,10 +653,10 @@ func move(delta):
 				
 			#apply grapple hook desired move speed incrementation
 			elif currentState == states.GRAPPLE:
-					if desiredMoveSpeed < maxSpeed: 
-						desiredMoveSpeed += grapHookSpeed * delta
-					else:
-						pass
+				if desiredMoveSpeed < maxSpeed: 
+					desiredMoveSpeed += grapHookSpeed * delta
+				else:
+					pass
 					
 			#apply smooth move when walking, crouching, running
 			else:
@@ -1005,6 +1005,13 @@ func wallrunStateChanges():
 func grappleStateChanges():
 	#condition here, the state is changed only if the character isn't already grappling, and the grapple check is colliding
 	if grappleHookCheck.is_colliding() and timeBeforeCanGrappleAgain <= 0.0 and currentState != states.GRAPPLE:
+		var hit_normal = grappleHookCheck.get_collision_normal()
+		
+		#check if the hit normal is too close to UP (i.e., pointing upward with a value of 1) with 0.7 meaning it's mostly horizontal and facing upwards
+		if hit_normal.dot(Vector3.UP) > 0.7:
+			#surface is too horizontal — do not grapple
+			return
+		
 		currentState = states.GRAPPLE
 		
 		if is_on_floor(): 
@@ -1045,7 +1052,7 @@ func grappleStateChanges():
 		pass
 
 func collisionHandling(time):
-	#this function handle the collisions, but in this case, only the collision with a wall, to detect if the character can wallrun
+	#this function handle the collisions, whether that be collisions with a wall, ground or ceiling, to detect if the character can wallrun, jump upwards or simply collide
 	if is_on_wall():
 		var lastCollision = get_last_slide_collision()
 		canFloorDamage = true
@@ -1055,25 +1062,25 @@ func collisionHandling(time):
 			var collidedBody = lastCollision.get_collider()
 			var layer = collidedBody.collision_layer
 			
-			#here, we check the layer of the collider, then we check if the layer 3 (walkableWall) is enabled, with 1 << 3-1. If theses two points are valid, the character can wallrun
+			#here, we check the layer of the collider, then we check if the layer 3 (walkableWall) is enabled, with 1 << 3-1. If theses two points are valid, the character can wallrun, if not, the player cannot and will instead collide, potentially losing health
 			if layer & (1 << 3-1) != 0: 
 				canWallRun = true 
 			else:
 				canWallRun = false
 				
 				if canWallDamage:
-					if sqrt(momentum.x**2 + momentum.z**2) >= damageThresholdMomentum:
+					if sqrt(momentum.x**2 + momentum.z**2) >= damageThresholdMomentum: #use pythagoras's theorem (a^2+b^2=c^2) of the x and z components of the momentum vector on the player to calculate the overall horziontal momentum and check if it's enough to cause damage to the player
 						force = -momentum/time
 						collisionRadius = abs(global_position - lastCollision.get_position())
-						remainingHealth -= (sqrt(force.x**2 + force.z**2))
+						remainingHealth -= (sqrt(force.x**2 + force.z**2)) #use pythagoras's theorem (a^2+b^2=c^2) of the x and z components of the force vector to calculate the overall horziontal force on the player when they collide, minusing this from their health
 						canWallDamage = false
 						
 						if remainingHealth <= 0:
-							torque = Vector3(-force.z*collisionRadius.y, force.y*collisionRadius.x*collisionRadius.z, -force.x*collisionRadius.y)
+							torque = Vector3(-force.z*collisionRadius.y, force.y*collisionRadius.x*collisionRadius.z, -force.x*collisionRadius.y) #create a torque (rotational force) to later apply on the players dead body as they collide to simulate realistic physics
 							remainingHealth = 0
 							die()
 						else:
-							hud.displayBlood(0.5*(remainingHealth)/health)
+							hud.displayBlood(0.5*(remainingHealth)/health) #display blood splatter vfx on the screen when the player takes damage by mulitpling the raidus (0.5) of the visible area by the proportion of remaining health and maximum health so more blood appears as the player loses more health
 					else:
 						pass
 				else:
@@ -1090,22 +1097,23 @@ func collisionHandling(time):
 			var collidedBody = lastCollision.get_collider()
 			var layer = collidedBody.collision_layer
 			
+			#here, we check the layer of the collider, then we check if the layer 4 (jumpingPad) is enabled, with 1 << 4-1. If theses two points are valid, the character will jump upwards
 			if layer & (1 << 4-1) != 0:
 				pass
 			else:
 				if canFloorDamage:
-					if abs(momentum.y) >= damageThresholdMomentum:
+					if abs(momentum.y) >= damageThresholdMomentum: #check if the y/vertical component of the momentum vector on the player is enough to cause damage to the player
 						force = -momentum/time
 						collisionRadius = abs(global_position - lastCollision.get_position())
-						remainingHealth -= abs(force.y)
+						remainingHealth -= abs(force.y)  #use if the y/vertical component of the force vector on the player as the force they experience when hitting the ground, minising this from their health
 						canFloorDamage = false
 						
 						if remainingHealth <= 0:
-							torque = Vector3(-force.z*collisionRadius.y, 0, force.x*collisionRadius.y)
+							torque = Vector3(-force.z*collisionRadius.y, 0, force.x*collisionRadius.y) #create a torque (rotational force) to later apply on the players dead body as they collide to simulate realistic physics
 							remainingHealth = 0
 							die()
 						else:
-							hud.displayBlood(0.5*(remainingHealth)/health)
+							hud.displayBlood(0.5*(remainingHealth)/health) #display blood splatter vfx on the screen when the player takes damage by mulitpling the raidus (0.5) of the visible area by the proportion of remaining health and maximum health so more blood appears as the player loses more health
 					else:
 						pass
 				else:
@@ -1120,18 +1128,18 @@ func collisionHandling(time):
 		
 		if lastCollision:
 			if canCeilingDamage:
-				if abs(momentum.y) >= damageThresholdMomentum:
+				if abs(momentum.y) >= damageThresholdMomentum: #check if the y/vertical component of the momentum vector on the player is enough to cause damage to the player
 					force = -momentum/time
 					collisionRadius = abs(global_position - lastCollision.get_position())
-					remainingHealth -= abs(force.y)
+					remainingHealth -= abs(force.y) #use if the y/vertical component of the force vector on the player as the force they experience when hitting the ground, minising this from their health
 					canCeilingDamage = false
 					
 					if remainingHealth <= 0:
-						torque = Vector3(-force.z*collisionRadius.y, 0, force.x*collisionRadius.y)
+						torque = Vector3(-force.z*collisionRadius.y, 0, force.x*collisionRadius.y) #create a torque (rotational force) to later apply on the players dead body as they collide to simulate realistic physics
 						remainingHealth = 0
 						die()
 					else:
-						hud.displayBlood(0.5*(remainingHealth)/health)
+						hud.displayBlood(0.5*(remainingHealth)/health) #display blood splatter vfx on the screen when the player takes damage by mulitpling the raidus (0.5) of the visible area by the proportion of remaining health and maximum health so more blood appears as the player loses more health
 				else:
 					pass
 			else:
@@ -1146,6 +1154,7 @@ func collisionHandling(time):
 	momentum = mass*velocity
 
 func die():
+	#this function is responsible for turning the player into a deadbody when they die by switching from characterbody3d to rigidbody3d whilst setting up the appropriate properties and calling the appropriate functions
 	var deadBody = preload("res://Scenes/DeadBodyScene.tscn").instantiate()
 	get_parent().add_child(deadBody)
 	deadBody.transform = get_global_transform()
