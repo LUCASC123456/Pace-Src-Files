@@ -1,9 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://oj3blpxqf1bl"]
+[gd_scene load_steps=23 format=3 uid="uid://oj3blpxqf1bl"]
 
-[ext_resource type="PackedScene" uid="uid://bwggrf7sbmkcv" path="res://Scenes/PlayerCharacterScene.tscn" id="1_tvhlt"]
 [ext_resource type="Texture2D" uid="uid://cosanfwg57e4y" path="res://Arts/Textures/kenney_prototype_textures/orange/texture_03.png" id="2_v37ox"]
 [ext_resource type="Texture2D" uid="uid://c3wt61i40kd0n" path="res://Arts/Textures/kenney_prototype_textures/dark/texture_03.png" id="3_lilqa"]
 [ext_resource type="Script" path="res://Scripts/Others/JumppadScript.gd" id="4_nyumb"]
+[ext_resource type="PackedScene" uid="uid://bu2d2l2emtdp" path="res://Scenes/City.blend" id="5_50nlo"]
+[ext_resource type="Script" path="res://Scripts/Others/CheckPointScript.gd" id="6_5mgbl"]
+[ext_resource type="Shader" path="res://Scenes/CheckPoint.gdshader" id="7_m7tga"]
+[ext_resource type="PackedScene" uid="uid://c4bml644dyg7f" path="res://Scenes/MainMenu.tscn" id="8_yqton"]
+[ext_resource type="PackedScene" uid="uid://cmriwaexowk04" path="res://Scenes/WinMenuScene.tscn" id="9_cio0p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fjbi6"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -49,6 +53,37 @@ albedo_color = Color(0.12549, 0.568627, 1, 1)
 height = 0.15
 radius = 2.0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ijvsc"]
+height = 2.5
+radius = 15.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ek82a"]
+render_priority = 0
+shader = ExtResource("7_m7tga")
+shader_parameter/line_width = 0.02
+shader_parameter/line_spacing = 0.2
+shader_parameter/line_color = Color(1, 0.5, 0, 0.75)
+shader_parameter/base_color = Color(0.5, 0.5, 0.5, 0)
+shader_parameter/rotation_speed = 0.25
+shader_parameter/time_offset = 0.0
+shader_parameter/top_normal_threshold = 0.9
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3us4e"]
+material = SubResource("ShaderMaterial_ek82a")
+top_radius = 15.0
+bottom_radius = 15.0
+height = 2.5
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_telvl"]
+transparency = 1
+albedo_color = Color(1, 1, 0, 0.75)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6b2og"]
+material = SubResource("StandardMaterial3D_telvl")
+height = 20.0
+
 [node name="TemplateMap" type="Node3D"]
 
 [node name="Environment" type="Node3D" parent="."]
@@ -61,8 +96,6 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="PlayerCharacter" type="Node3D" parent="."]
-
-[node name="PlayerCharacter" parent="PlayerCharacter" instance=ExtResource("1_tvhlt")]
 
 [node name="Map" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -1.5, 0)
@@ -296,7 +329,39 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0425774, 0)
 shape = SubResource("CylinderShape3D_vm7yl")
 
+[node name="CheckPoints" type="Node3D" parent="Map"]
+
+[node name="FinishArea" type="Area3D" parent="Map/CheckPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -640.733, 111.256, 0)
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("6_5mgbl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CheckPoints/FinishArea"]
+shape = SubResource("CylinderShape3D_ijvsc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/CheckPoints/FinishArea"]
+mesh = SubResource("CylinderMesh_3us4e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/CheckPoints/FinishArea"]
+mesh = SubResource("CylinderMesh_6b2og")
+
+[node name="City" parent="Map" instance=ExtResource("5_50nlo")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -317.684, 0, 0)
+
+[node name="Camera" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Camera"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 75, 0)
+
+[node name="MainMenu" parent="Camera/Camera3D" instance=ExtResource("8_yqton")]
+
+[node name="WinMenuScreen" parent="Camera/Camera3D" node_paths=PackedStringArray("mainMenu") instance=ExtResource("9_cio0p")]
+mainMenu = NodePath("../MainMenu")
+
 [connection signal="area_entered" from="Map/Jumppads/Jumppad/Area3D" to="Map/Jumppads/Jumppad" method="_on_area_3d_area_entered"]
 [connection signal="area_entered" from="Map/Jumppads/Jumppad3/Area3D" to="Map/Jumppads/Jumppad3" method="_on_area_3d_area_entered"]
 [connection signal="area_entered" from="Map/Jumppads/Jumppad2/Area3D" to="Map/Jumppads/Jumppad2" method="_on_area_3d_area_entered"]
 [connection signal="area_entered" from="Map/Jumppads/Jumppad4/Area3D" to="Map/Jumppads/Jumppad4" method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="Map/CheckPoints/FinishArea" to="Map/CheckPoints/FinishArea" method="_on_area_entered"]
+[connection signal="area_entered" from="Map/CheckPoints/FinishArea" to="Camera/Camera3D/WinMenuScreen" method="_on_finish_area_area_entered"]

@@ -92,6 +92,7 @@ useKnockbackTool={
 3d_physics/layer_2="playerCharacter"
 3d_physics/layer_3="walkableWalls"
 3d_physics/layer_4="jumpPads"
+3d_physics/layer_5="checkPoints"
 
 [rendering]
 

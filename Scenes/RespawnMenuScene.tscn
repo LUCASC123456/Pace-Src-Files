@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dp1h46aky84if"]
 
-[ext_resource type="Script" path="res://Scripts/RespawnMenuScript.gd" id="1_qexre"]
+[ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/RespawnMenuScript.gd" id="1_qexre"]
 
-[sub_resource type="FontFile" id="FontFile_yn2gq"]
+[sub_resource type="FontFile" id="FontFile_lg2ox"]
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
@@ -19,7 +19,7 @@ cache/0/80/0/scale = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_lg6eq"]
 line_spacing = 5.0
-font = SubResource("FontFile_yn2gq")
+font = SubResource("FontFile_lg2ox")
 font_size = 80
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
@@ -62,7 +62,7 @@ layout_mode = 2
 
 [node name="DeathLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "You Died
+text = "YOU DIED
 "
 label_settings = SubResource("LabelSettings_lg6eq")
 horizontal_alignment = 1
@@ -78,6 +78,12 @@ custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontFile_dvunk")
 theme_override_font_sizes/font_size = 55
-text = "Respawn"
+text = "RESPAWN"
+
+[node name="RespawnMenuTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
 
 [connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/RespawnButton" to="." method="_on_respawn_button_pressed"]
+[connection signal="timeout" from="RespawnMenuTimer" to="." method="_on_respawn_menu_timer_timeout"]

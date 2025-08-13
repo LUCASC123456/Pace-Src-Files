@@ -32,6 +32,7 @@ var volumeIsMute : bool = false
 
 @export_group("Parent variables")
 @export var pauseMenu : CanvasLayer
+@export var mainMenu : CanvasLayer
 
 var optionsMenuEnabled : bool = false
 
@@ -141,7 +142,10 @@ func _on_check_box_pressed():
 	
 func _on_back_button_pressed():
 	#close the options menu, and re open the pause menu
-	if pauseMenu != null:
+	if mainMenu != null:
+		setOptionsMenu(false)
+		mainMenu.setMainMenu(true, true)
+	elif pauseMenu != null:
 		setOptionsMenu(false)
 		pauseMenu.setPauseMenu(true, true)
 	else:
