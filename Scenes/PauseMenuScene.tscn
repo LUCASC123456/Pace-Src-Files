@@ -35,7 +35,7 @@ layout_mode = 2
 
 [node name="PausedLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Paused"
+text = "PAUSED"
 label_settings = SubResource("LabelSettings_eaa6r")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -50,7 +50,8 @@ custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_g88fa")
 theme_override_font_sizes/font_size = 55
-text = "Resume"
+text = "RESUME
+"
 
 [node name="HSeparator2" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -64,7 +65,7 @@ custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_g88fa")
 theme_override_font_sizes/font_size = 55
-text = "Options"
+text = "OPTIONS"
 
 [node name="HSeparator3" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -73,16 +74,39 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="QuitButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
+[node name="ExitButton1" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_g88fa")
 theme_override_font_sizes/font_size = 55
-text = "Quit"
+text = "EXIT"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer2/PanelContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="ConfirmationLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
+layout_mode = 2
+text = "ARE YOU SURE YOU WANT TO EXIT?"
+label_settings = SubResource("LabelSettings_eaa6r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="ExitButton2" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_g88fa")
+theme_override_font_sizes/font_size = 55
+text = "EXIT"
 
 [node name="OptionsMenu" parent="." node_paths=PackedStringArray("pauseMenu") instance=ExtResource("3_0w74v")]
 pauseMenu = NodePath("..")
 
 [connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/ExitButton1" to="." method="_on_exit_button_1_pressed"]
+[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2/ExitButton2" to="." method="_on_exit_button_2_pressed"]

@@ -13,7 +13,9 @@ var currentState
 #move variables
 @export_group("move variables")
 var moveSpeed : float
-var desiredMoveSpeed : float 
+var velocityFinal
+var velocityInitial
+var desiredMoveSpeed : float
 @export var desiredMoveSpeedCurve : Curve
 @export var maxSpeed : float 
 @export var walkSpeed : float
@@ -133,6 +135,7 @@ const damageThresholdMomentum = 4000
 @onready var mesh = $MeshInstance3D
 @onready var hud = $HUD
 @onready var pauseMenu = $PauseMenu
+@onready var winMenu = $"../../Camera/Camera3D/WinMenuScreen"
 
 func _ready():
 	#set the start move speed
@@ -604,6 +607,8 @@ func applies(delta):
 			pass
 	else:
 		pass
+	
+	winMenu.timeTaken += delta
 		
 func move(delta):
 	#direction input
@@ -745,6 +750,13 @@ func move(delta):
 	
 	lastFramePosition = position
 	wasOnFloor = !is_on_floor()
+	
+	if !velocityInitial:
+		velocityInitial = abs(velocity.length())
+	else:
+		velocityFinal = abs(velocity.length())
+		winMenu.distanceTravelled += delta*(velocityFinal+velocityInitial)/2
+		velocityInitial = velocityFinal
 			
 func jump(jumpBoostValue : float, isJumpBoost : bool): 
 	#this function manage the jump behaviour, depending of the different variables and states the character is
@@ -1051,7 +1063,7 @@ func grappleStateChanges():
 	else:
 		pass
 
-func collisionHandling(time):
+func collisionHandling(delta):
 	#this function handle the collisions, whether that be collisions with a wall, ground or ceiling, to detect if the character can wallrun, jump upwards or simply collide
 	if is_on_wall():
 		var lastCollision = get_last_slide_collision()
@@ -1070,9 +1082,10 @@ func collisionHandling(time):
 				
 				if canWallDamage:
 					if sqrt(momentum.x**2 + momentum.z**2) >= damageThresholdMomentum: #use pythagoras's theorem (a^2+b^2=c^2) of the x and z components of the momentum vector on the player to calculate the overall horziontal momentum and check if it's enough to cause damage to the player
-						force = -momentum/time
+						force = -momentum/delta
 						collisionRadius = abs(global_position - lastCollision.get_position())
 						remainingHealth -= (sqrt(force.x**2 + force.z**2)) #use pythagoras's theorem (a^2+b^2=c^2) of the x and z components of the force vector to calculate the overall horziontal force on the player when they collide, minusing this from their health
+						winMenu.damageDealt += (sqrt(force.x**2 + force.z**2))
 						canWallDamage = false
 						
 						if remainingHealth <= 0:
@@ -1103,9 +1116,10 @@ func collisionHandling(time):
 			else:
 				if canFloorDamage:
 					if abs(momentum.y) >= damageThresholdMomentum: #check if the y/vertical component of the momentum vector on the player is enough to cause damage to the player
-						force = -momentum/time
+						force = -momentum/delta
 						collisionRadius = abs(global_position - lastCollision.get_position())
 						remainingHealth -= abs(force.y)  #use if the y/vertical component of the force vector on the player as the force they experience when hitting the ground, minising this from their health
+						winMenu.damageDealt += abs(force.y)
 						canFloorDamage = false
 						
 						if remainingHealth <= 0:
@@ -1129,9 +1143,10 @@ func collisionHandling(time):
 		if lastCollision:
 			if canCeilingDamage:
 				if abs(momentum.y) >= damageThresholdMomentum: #check if the y/vertical component of the momentum vector on the player is enough to cause damage to the player
-					force = -momentum/time
+					force = -momentum/delta
 					collisionRadius = abs(global_position - lastCollision.get_position())
 					remainingHealth -= abs(force.y) #use if the y/vertical component of the force vector on the player as the force they experience when hitting the ground, minising this from their health
+					winMenu.damageDealt += abs(force.y)
 					canCeilingDamage = false
 					
 					if remainingHealth <= 0:
@@ -1150,7 +1165,7 @@ func collisionHandling(time):
 		canWallDamage = true
 		canFloorDamage = true
 		canCeilingDamage = true
-		
+	
 	momentum = mass*velocity
 
 func die():

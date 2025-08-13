@@ -1,9 +1,11 @@
 extends CanvasLayer
 
+@onready var vBoxOne = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer
+@onready var vBoxTwo = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2
 var pauseMenuEnabled : bool = false
 var mouseFree : bool = false 
 
-@export var optionsMenu : CanvasLayer 
+@export var optionsMenu : CanvasLayer
 
 func _ready():
 	setPauseMenu(false, false)
@@ -26,20 +28,22 @@ func _process(_delta):
 func setPauseMenu(value : bool, enable : bool):
 	#set the pause menu behaviour (visibility, mouse control, ...)
 	visible = value
+	vBoxOne.visible = value
+	vBoxTwo.visible = false
 	mouseFree = enable
 	pauseMenuEnabled = enable
-	
-	#stop game process when the pause menu is enabled
-	if pauseMenuEnabled: 
-		Engine.time_scale = 0.0
-	else: 
-		Engine.time_scale = 1.0
 	
 	#handle mouse mode
 	if mouseFree: 
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else: 
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	#stop game process when the pause menu is enabled
+	if pauseMenuEnabled: 
+		Engine.time_scale = 0.0
+	else: 
+		Engine.time_scale = 1.0
 	
 func _on_resume_button_pressed():
 	#close pause menu
@@ -52,8 +56,15 @@ func _on_options_button_pressed():
 		optionsMenu.setOptionsMenu(true) #open options menu
 	else:
 		pass
+
+func _on_exit_button_1_pressed() -> void:
+	vBoxOne.visible = false
+	vBoxTwo.visible = true
+
+func _on_exit_button_2_pressed() -> void:
+	var player = get_tree().current_scene.get_node("PlayerCharacter/PlayerCharacter")
+	var mainMenu = get_tree().current_scene.get_node("Camera/Camera3D/MainMenu")
 	
-func _on_quit_button_pressed():
-	#close the window, and so close the game
-	get_tree().quit()
-	
+	setPauseMenu(false, true)
+	player.queue_free()
+	mainMenu.setMainMenu(true, true)
