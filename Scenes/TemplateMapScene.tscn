@@ -1,12 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://oj3blpxqf1bl"]
+[gd_scene load_steps=26 format=3 uid="uid://oj3blpxqf1bl"]
 
 [ext_resource type="Texture2D" uid="uid://cosanfwg57e4y" path="res://Arts/Textures/kenney_prototype_textures/orange/texture_03.png" id="2_v37ox"]
 [ext_resource type="Texture2D" uid="uid://c3wt61i40kd0n" path="res://Arts/Textures/kenney_prototype_textures/dark/texture_03.png" id="3_lilqa"]
+[ext_resource type="Script" path="res://Scripts/Others/CheckPointManagerScript.gd" id="4_8hsqg"]
 [ext_resource type="Script" path="res://Scripts/Others/JumppadScript.gd" id="4_nyumb"]
 [ext_resource type="PackedScene" uid="uid://bu2d2l2emtdp" path="res://Scenes/City.blend" id="5_50nlo"]
 [ext_resource type="Script" path="res://Scripts/Others/CheckPointScript.gd" id="6_5mgbl"]
+[ext_resource type="Script" path="res://Scripts/Others/WaypointScript.gd" id="7_7uesv"]
 [ext_resource type="Shader" path="res://Scenes/CheckPoint.gdshader" id="7_m7tga"]
-[ext_resource type="PackedScene" uid="uid://c4bml644dyg7f" path="res://Scenes/MainMenu.tscn" id="8_yqton"]
+[ext_resource type="Texture2D" uid="uid://llt51oxb8svo" path="res://Arts/Textures/waypoint.svg" id="8_d5jld"]
+[ext_resource type="PackedScene" uid="uid://c4bml644dyg7f" path="res://Scenes/MainMenuScene.tscn" id="8_yqton"]
 [ext_resource type="PackedScene" uid="uid://cmriwaexowk04" path="res://Scenes/WinMenuScene.tscn" id="9_cio0p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fjbi6"]
@@ -330,21 +333,199 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0425774, 0)
 shape = SubResource("CylinderShape3D_vm7yl")
 
 [node name="CheckPoints" type="Node3D" parent="Map"]
+script = ExtResource("4_8hsqg")
 
-[node name="FinishArea" type="Area3D" parent="Map/CheckPoints"]
+[node name="StartCheckPoint" type="Area3D" parent="Map/CheckPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1.5, 0)
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("6_5mgbl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CheckPoints/StartCheckPoint"]
+shape = SubResource("CylinderShape3D_ijvsc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/CheckPoints/StartCheckPoint"]
+mesh = SubResource("CylinderMesh_3us4e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/CheckPoints/StartCheckPoint"]
+mesh = SubResource("CylinderMesh_6b2og")
+
+[node name="WaypointAnchor" type="Marker3D" parent="Map/CheckPoints/StartCheckPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Control" type="Control" parent="Map/CheckPoints/StartCheckPoint/WaypointAnchor"]
+modulate = Color(1, 0.5, 0, 1)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_7uesv")
+text = "OBJECTIVE"
+
+[node name="Label" type="Label" parent="Map/CheckPoints/StartCheckPoint/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -17.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.501961)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+text = "WAYPOINT"
+horizontal_alignment = 1
+
+[node name="Marker" type="TextureRect" parent="Map/CheckPoints/StartCheckPoint/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 120.0
+offset_bottom = 112.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("8_d5jld")
+
+[node name="CheckPoint" type="Area3D" parent="Map/CheckPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.8593, 1.59992, 0)
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("6_5mgbl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CheckPoints/CheckPoint"]
+shape = SubResource("CylinderShape3D_ijvsc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/CheckPoints/CheckPoint"]
+mesh = SubResource("CylinderMesh_3us4e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/CheckPoints/CheckPoint"]
+mesh = SubResource("CylinderMesh_6b2og")
+
+[node name="WaypointAnchor" type="Marker3D" parent="Map/CheckPoints/CheckPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Control" type="Control" parent="Map/CheckPoints/CheckPoint/WaypointAnchor"]
+modulate = Color(1, 0.5, 0, 1)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_7uesv")
+text = "OBJECTIVE"
+
+[node name="Label" type="Label" parent="Map/CheckPoints/CheckPoint/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -17.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.501961)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+text = "WAYPOINT"
+horizontal_alignment = 1
+
+[node name="Marker" type="TextureRect" parent="Map/CheckPoints/CheckPoint/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 120.0
+offset_bottom = 112.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("8_d5jld")
+
+[node name="CheckPoint2" type="Area3D" parent="Map/CheckPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -442.317, 44.85, 0)
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("6_5mgbl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CheckPoints/CheckPoint2"]
+shape = SubResource("CylinderShape3D_ijvsc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/CheckPoints/CheckPoint2"]
+mesh = SubResource("CylinderMesh_3us4e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/CheckPoints/CheckPoint2"]
+mesh = SubResource("CylinderMesh_6b2og")
+
+[node name="WaypointAnchor" type="Marker3D" parent="Map/CheckPoints/CheckPoint2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Control" type="Control" parent="Map/CheckPoints/CheckPoint2/WaypointAnchor"]
+modulate = Color(1, 0.5, 0, 1)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_7uesv")
+text = "OBJECTIVE"
+
+[node name="Label" type="Label" parent="Map/CheckPoints/CheckPoint2/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -17.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.501961)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+text = "WAYPOINT"
+horizontal_alignment = 1
+
+[node name="Marker" type="TextureRect" parent="Map/CheckPoints/CheckPoint2/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 120.0
+offset_bottom = 112.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("8_d5jld")
+
+[node name="FinishCheckPoint" type="Area3D" parent="Map/CheckPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -640.733, 111.256, 0)
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("6_5mgbl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CheckPoints/FinishArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CheckPoints/FinishCheckPoint"]
 shape = SubResource("CylinderShape3D_ijvsc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/CheckPoints/FinishArea"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/CheckPoints/FinishCheckPoint"]
 mesh = SubResource("CylinderMesh_3us4e")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/CheckPoints/FinishArea"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/CheckPoints/FinishCheckPoint"]
 mesh = SubResource("CylinderMesh_6b2og")
+
+[node name="WaypointAnchor" type="Marker3D" parent="Map/CheckPoints/FinishCheckPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Control" type="Control" parent="Map/CheckPoints/FinishCheckPoint/WaypointAnchor"]
+modulate = Color(1, 0.5, 0, 1)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_7uesv")
+text = "OBJECTIVE"
+
+[node name="Label" type="Label" parent="Map/CheckPoints/FinishCheckPoint/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -17.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.501961)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+text = "WAYPOINT"
+horizontal_alignment = 1
+
+[node name="Marker" type="TextureRect" parent="Map/CheckPoints/FinishCheckPoint/WaypointAnchor/Control"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 120.0
+offset_bottom = 112.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("8_d5jld")
 
 [node name="City" parent="Map" instance=ExtResource("5_50nlo")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -317.684, 0, 0)
@@ -356,12 +537,15 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 75,
 
 [node name="MainMenu" parent="Camera/Camera3D" instance=ExtResource("8_yqton")]
 
-[node name="WinMenuScreen" parent="Camera/Camera3D" node_paths=PackedStringArray("mainMenu") instance=ExtResource("9_cio0p")]
+[node name="WinMenu" parent="Camera/Camera3D" node_paths=PackedStringArray("mainMenu") instance=ExtResource("9_cio0p")]
 mainMenu = NodePath("../MainMenu")
 
 [connection signal="area_entered" from="Map/Jumppads/Jumppad/Area3D" to="Map/Jumppads/Jumppad" method="_on_area_3d_area_entered"]
 [connection signal="area_entered" from="Map/Jumppads/Jumppad3/Area3D" to="Map/Jumppads/Jumppad3" method="_on_area_3d_area_entered"]
 [connection signal="area_entered" from="Map/Jumppads/Jumppad2/Area3D" to="Map/Jumppads/Jumppad2" method="_on_area_3d_area_entered"]
 [connection signal="area_entered" from="Map/Jumppads/Jumppad4/Area3D" to="Map/Jumppads/Jumppad4" method="_on_area_3d_area_entered"]
-[connection signal="area_entered" from="Map/CheckPoints/FinishArea" to="Map/CheckPoints/FinishArea" method="_on_area_entered"]
-[connection signal="area_entered" from="Map/CheckPoints/FinishArea" to="Camera/Camera3D/WinMenuScreen" method="_on_finish_area_area_entered"]
+[connection signal="area_entered" from="Map/CheckPoints/StartCheckPoint" to="Map/CheckPoints/StartCheckPoint" method="_on_area_entered"]
+[connection signal="area_entered" from="Map/CheckPoints/CheckPoint" to="Map/CheckPoints/CheckPoint" method="_on_area_entered"]
+[connection signal="area_entered" from="Map/CheckPoints/CheckPoint2" to="Map/CheckPoints/CheckPoint2" method="_on_area_entered"]
+[connection signal="area_entered" from="Map/CheckPoints/FinishCheckPoint" to="Map/CheckPoints/FinishCheckPoint" method="_on_area_entered"]
+[connection signal="win" from="Map/CheckPoints/FinishCheckPoint" to="Camera/Camera3D/WinMenu" method="_on_finish_check_point_win"]

@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://bwggrf7sbmkcv"]
+[gd_scene load_steps=32 format=3 uid="uid://bwggrf7sbmkcv"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/PlayerCharacterScript.gd" id="1_5dbx1"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/CameraScript.gd" id="2_x12n0"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/HUDScript.gd" id="4_f4mp1"]
-[ext_resource type="FontFile" uid="uid://bwr73i28ligrq" path="res://Arts/Fonts/Ticketing.ttf" id="5_kleop"]
 [ext_resource type="PackedScene" uid="uid://dh3ln04ijax8n" path="res://Scenes/PauseMenuScene.tscn" id="6_3wmtt"]
 [ext_resource type="Shader" path="res://Scenes/PlayerCharacterScene.gdshader" id="6_eg5bf"]
 [ext_resource type="Texture2D" uid="uid://da3woq4q3j1cr" path="res://Arts/Textures/blood_splatter.png" id="7_0m3tf"]
@@ -137,8 +136,18 @@ border_width_bottom = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_02rm5"]
 line_spacing = 5.0
-font = ExtResource("5_kleop")
-font_size = 25
+font_size = 50
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0ffd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_top = 5
+border_width_bottom = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_38hk4"]
+line_spacing = 5.0
+font_size = 50
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
@@ -196,7 +205,7 @@ grapHookSpeed = 80.0
 grapHookAccel = 6.0
 distToStopGrappleOnFloor = 10.0
 distToStopGrappleIAir = 5.0
-timeBeforeCanGrappleAgain = 0.5
+timeBeforeCanGrappleAgain = 1.0
 grappleLaunchJumpVelocity = 8.0
 downDirJump = true
 wallGravityMultiplier = 0.7
@@ -369,6 +378,31 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_ga166")
 text = "..................."
 label_settings = SubResource("LabelSettings_02rm5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckpointUI" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 230.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0ffd")
+label_settings = SubResource("LabelSettings_38hk4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="HUD/CheckpointUI"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 154.0
+offset_top = 53.0
+offset_right = 200.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 15
+text = "STAGE
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 

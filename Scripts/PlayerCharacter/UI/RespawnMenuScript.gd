@@ -21,7 +21,10 @@ func _on_respawn_button_pressed() -> void:
 	var playerScene = load("res://Scenes/PlayerCharacterScene.tscn")
 	var player = playerScene.instantiate()
 	get_tree().current_scene.get_node("PlayerCharacter").add_child(player)
-	player.global_position = Vector3.ZERO
+	
+	var spawnPoint = get_tree().current_scene.get_node("Map/CheckPoints").spawnPoint
+	player.global_position = spawnPoint.global_position
+	
 	get_parent().queue_free()
 
 

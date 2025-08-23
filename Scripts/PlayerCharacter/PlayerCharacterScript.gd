@@ -135,7 +135,7 @@ const damageThresholdMomentum = 4000
 @onready var mesh = $MeshInstance3D
 @onready var hud = $HUD
 @onready var pauseMenu = $PauseMenu
-@onready var winMenu = $"../../Camera/Camera3D/WinMenuScreen"
+@onready var winMenu = $"../../Camera/Camera3D/WinMenu"
 
 func _ready():
 	#set the start move speed
@@ -391,6 +391,8 @@ func inputManagement():
 func displayStats():
 	#call the functions in charge of displaying the controller properties
 	hud.displayVelocity(velocity.length())
+	hud.displayCheckPoints()
+	hud.displayHealth()
 	
 	#not a property, but a visual
 	if currentState == states.DASH: 

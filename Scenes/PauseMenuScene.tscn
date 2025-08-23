@@ -1,13 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://dh3ln04ijax8n"]
 
-[ext_resource type="FontFile" uid="uid://bwr73i28ligrq" path="res://Arts/Fonts/Ticketing.ttf" id="1_g88fa"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/PauseMenuScript.gd" id="1_oxp60"]
 [ext_resource type="PackedScene" uid="uid://bdhpuj7itpv6j" path="res://Scenes/OptionsMenuScene.tscn" id="3_0w74v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eaa6r"]
 line_spacing = 5.0
-font = ExtResource("1_g88fa")
 font_size = 80
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ow2yh"]
+line_spacing = 5.0
+font_size = 60
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
@@ -48,8 +52,7 @@ theme_override_constants/separation = 40
 [node name="ResumeButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_g88fa")
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 50
 text = "RESUME
 "
 
@@ -63,8 +66,7 @@ theme_override_constants/separation = 30
 [node name="OptionsButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_g88fa")
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 50
 text = "OPTIONS"
 
 [node name="HSeparator3" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
@@ -77,17 +79,16 @@ theme_override_constants/separation = 30
 [node name="ExitButton1" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_g88fa")
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 50
 text = "EXIT"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer2/PanelContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="ConfirmationLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
+[node name="ConformationLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
 layout_mode = 2
 text = "ARE YOU SURE YOU WANT TO EXIT?"
-label_settings = SubResource("LabelSettings_eaa6r")
+label_settings = SubResource("LabelSettings_ow2yh")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -97,10 +98,10 @@ layout_mode = 2
 theme_override_constants/separation = 40
 
 [node name="ExitButton2" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(200, 80)
+custom_minimum_size = Vector2(500, 80)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_g88fa")
-theme_override_font_sizes/font_size = 55
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
 text = "EXIT"
 
 [node name="OptionsMenu" parent="." node_paths=PackedStringArray("pauseMenu") instance=ExtResource("3_0w74v")]
