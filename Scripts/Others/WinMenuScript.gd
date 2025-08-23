@@ -4,11 +4,11 @@ extends CanvasLayer
 @onready var distanceTravelledLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/DistanceTravelledLabel
 @onready var damageDealthLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/DamageDealtLabel
 @onready var exitButton = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/ExitButton
-var winMenuEnabled : bool = false
-var mouseFree : bool = false
 var timeTaken : float
 var distanceTravelled : float
 var damageDealt : int
+var winMenuEnabled : bool = false
+var mouseFree : bool = false
 
 @export var mainMenu : CanvasLayer
 
@@ -38,17 +38,15 @@ func _on_exit_button_pressed() -> void:
 	else:
 		pass
 
-func _on_finish_area_area_entered(area: Area3D) -> void:
-	if area.get_parent() is PlayerCharacter: 
-		setWinMenu(true, true)
-		timeTakenLabel.set_text("TIME TAKEN: " + str(int(timeTaken)) + "s")
-		distanceTravelledLabel.set_text("DISTANCE TRAVELLED: " + str(int(distanceTravelled)) + "m")
-		damageDealthLabel.set_text("DAMAGE DEALT: " + str(damageDealt) + "hp")
-		
-		timeTaken = 0
-		distanceTravelled = 0
-		damageDealt = 0
-		
-		area.get_parent().queue_free()
-	else:
-		pass
+func _on_finish_check_point_win(area : Area3D) -> void:
+	timeTakenLabel.set_text("TIME TAKEN: " + str(int(timeTaken)) + "s")
+	distanceTravelledLabel.set_text("DISTANCE TRAVELLED: " + str(int(distanceTravelled)) + "m")
+	damageDealthLabel.set_text("DAMAGE DEALT: " + str(damageDealt) + "hp")
+	
+	timeTaken = 0
+	distanceTravelled = 0
+	damageDealt = 0
+	
+	area.get_parent().queue_free()
+	
+	setWinMenu(true, true)

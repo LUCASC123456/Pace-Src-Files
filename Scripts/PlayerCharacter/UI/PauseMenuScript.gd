@@ -62,9 +62,20 @@ func _on_exit_button_1_pressed() -> void:
 	vBoxTwo.visible = true
 
 func _on_exit_button_2_pressed() -> void:
-	var player = get_tree().current_scene.get_node("PlayerCharacter/PlayerCharacter")
+	var player = get_parent()
+	player.queue_free()
+	
+	var checkpoints = get_tree().current_scene.get_node("Map/CheckPoints")
+	checkpoints.spawnPoint = checkpoints.get_node("StartCheckPoint")
+	checkpoints.objectivePoint = checkpoints.get_node("CheckPoint")
+	checkpoints.checkPointIndex = 0
+	
 	var mainMenu = get_tree().current_scene.get_node("Camera/Camera3D/MainMenu")
+	mainMenu.setMainMenu(true, true)
+	
+	var winMenu = get_tree().current_scene.get_node("Camera/Camera3D/WinMenu")
+	winMenu.timeTaken = 0
+	winMenu.distanceTravelled = 0
+	winMenu.damageDealt = 0
 	
 	setPauseMenu(false, true)
-	player.queue_free()
-	mainMenu.setMainMenu(true, true)
