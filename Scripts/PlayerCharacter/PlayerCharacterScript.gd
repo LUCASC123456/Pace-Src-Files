@@ -194,6 +194,9 @@ func _ready():
 	
 	#set the mesh scale of the character
 	mesh.scale = Vector3(1.0, 1.0, 1.0)
+	
+	#apply the set user controls/keybinds to the player control
+	SettingsManager.apply_all_keybinds()
 
 func _process(_delta):
 	#the behaviours that is preferable to check every "visual" frame

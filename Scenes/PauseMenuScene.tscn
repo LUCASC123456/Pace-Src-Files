@@ -83,6 +83,7 @@ theme_override_font_sizes/font_size = 50
 text = "EXIT"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer2/PanelContainer/CenterContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ConformationLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
