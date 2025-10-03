@@ -25,7 +25,7 @@ func _on_area_entered(area: Area3D) -> void:
 					if self == finishCheckPoint:
 						win.emit(area)
 						get_parent().spawnPoint = startCheckPoint
-						get_parent().objectivePoint = get_parent().get_children()[get_parent().get_children().find("CheckPoint")]
+						get_parent().objectivePoint = get_parent().get_node("CheckPoint")
 						get_parent().checkPointIndex = 0
 					else:
 						entered = true
