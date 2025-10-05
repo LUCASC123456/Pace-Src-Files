@@ -12,12 +12,12 @@ var winMenuEnabled : bool = false
 var mouseFree : bool = false
 
 @export var mainMenu : CanvasLayer
-@export var loseMenu : CanvasLayer
+@export var winMenu : CanvasLayer
 
 func _ready() -> void:
-	setWinMenu(false, true)
+	setLoseMenu(false, true)
 
-func setWinMenu(value : bool, enable : bool):
+func setLoseMenu(value : bool, enable : bool):
 	#set the respawn menu behaviour (visibility, mouse control, ...)
 	visible = value
 	mouseFree = enable
@@ -35,12 +35,13 @@ func setWinMenu(value : bool, enable : bool):
 
 func _on_exit_button_pressed() -> void:
 	if mainMenu != null:
-		setWinMenu(false, true)
+		setLoseMenu(false, true)
 		mainMenu.setMainMenu(true, true) #open main menu
 	else:
 		pass
 
-func _on_finish_check_point_win(area : Area3D) -> void:
+
+func _on_objectives_lose() -> void:
 	timeTakenLabel.set_text("TIME TAKEN: " + str(int(timeTaken)) + "s")
 	distanceTravelledLabel.set_text("DISTANCE TRAVELLED: " + str(int(distanceTravelled)) + "m")
 	damageDealthLabel.set_text("DAMAGE DEALT: " + str(damageDealt) + "hp")
@@ -48,10 +49,17 @@ func _on_finish_check_point_win(area : Area3D) -> void:
 	timeTaken = 0
 	distanceTravelled = 0
 	damageDealt = 0
-	loseMenu.timeTaken = 0
-	loseMenu.distanceTravelled = 0
-	loseMenu.damageDealt = 0
+	winMenu.timeTaken = 0
+	winMenu.distanceTravelled = 0
+	winMenu.damageDealt = 0
 	
-	area.get_parent().queue_free()
+	if get_tree().current_scene.get_node("PlayerCharacter").get_child(0) is PlayerCharacter:
+		var player = get_tree().current_scene.get_node("PlayerCharacter").get_child(0)
+		player.queue_free()
+	elif get_tree().current_scene.get_node("PlayerCharacter").get_child(0) is RigidBody3D:
+		var deadBody = get_tree().current_scene.get_node("PlayerCharacter").get_child(0)
+		deadBody.queue_free()
+	else:
+		pass
 	
-	setWinMenu(true, true)
+	setLoseMenu(true, true)

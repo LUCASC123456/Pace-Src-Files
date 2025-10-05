@@ -12,3 +12,7 @@ func _on_area_3d_area_entered(area):
 		area.get_parent().jump(jumpBoostValue, true)
 	else:
 		pass
+
+
+func _on_checkpoint_timer_timeout() -> void:
+	pass # Replace with function body.

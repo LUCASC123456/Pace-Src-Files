@@ -136,6 +136,7 @@ const damageThresholdMomentum = 4000
 @onready var hud = $HUD
 @onready var pauseMenu = $PauseMenu
 @onready var winMenu = $"../../Camera/Camera3D/WinMenu"
+@onready var loseMenu = $"../../Camera/Camera3D/LoseMenu"
 
 func _ready():
 	#set the start move speed
@@ -395,6 +396,8 @@ func displayStats():
 	#call the functions in charge of displaying the controller properties
 	hud.displayVelocity(velocity.length())
 	hud.displayCheckPoints()
+	hud.displayDistance()
+	hud.displayTime()
 	hud.displayHealth()
 	
 	#not a property, but a visual
@@ -614,6 +617,7 @@ func applies(delta):
 		pass
 	
 	winMenu.timeTaken += delta
+	loseMenu.timeTaken += delta
 		
 func move(delta):
 	#direction input
@@ -761,6 +765,7 @@ func move(delta):
 	else:
 		velocityFinal = abs(velocity.length())
 		winMenu.distanceTravelled += delta*(velocityFinal+velocityInitial)/2
+		loseMenu.distanceTravelled += delta*(velocityFinal+velocityInitial)/2
 		velocityInitial = velocityFinal
 			
 func jump(jumpBoostValue : float, isJumpBoost : bool): 
@@ -1091,6 +1096,7 @@ func collisionHandling(delta):
 						collisionRadius = abs(global_position - lastCollision.get_position())
 						remainingHealth -= (sqrt(force.x**2 + force.z**2)) #use pythagoras's theorem (a^2+b^2=c^2) of the x and z components of the force vector to calculate the overall horziontal force on the player when they collide, minusing this from their health
 						winMenu.damageDealt += (sqrt(force.x**2 + force.z**2))
+						loseMenu.damageDealt += (sqrt(force.x**2 + force.z**2))
 						canWallDamage = false
 						
 						if remainingHealth <= 0:
@@ -1125,6 +1131,7 @@ func collisionHandling(delta):
 						collisionRadius = abs(global_position - lastCollision.get_position())
 						remainingHealth -= abs(force.y)  #use if the y/vertical component of the force vector on the player as the force they experience when hitting the ground, minising this from their health
 						winMenu.damageDealt += abs(force.y)
+						loseMenu.damageDealt += abs(force.y)
 						canFloorDamage = false
 						
 						if remainingHealth <= 0:
@@ -1152,6 +1159,7 @@ func collisionHandling(delta):
 					collisionRadius = abs(global_position - lastCollision.get_position())
 					remainingHealth -= abs(force.y) #use if the y/vertical component of the force vector on the player as the force they experience when hitting the ground, minising this from their health
 					winMenu.damageDealt += abs(force.y)
+					loseMenu.damageDealt += abs(force.y)
 					canCeilingDamage = false
 					
 					if remainingHealth <= 0:

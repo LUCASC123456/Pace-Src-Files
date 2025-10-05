@@ -7,6 +7,8 @@ class_name HUD
 @onready var player = $".."
 @onready var speedUI = $SpeedUI
 @onready var checkpointUI = $CheckpointUI
+@onready var distanceUI = $DistanceUI
+@onready var timerUI = $TimerUI
 @onready var healthUI = $HealthUI
 @onready var speedLinesContainer = $SpeedLinesContainer
 @onready var bloodContainer = $BloodContainer
@@ -17,12 +19,20 @@ func _ready():
 	
 func displayVelocity(velocity : int):
 	#this function manage the current velocity displayment
-	speedUI.set_text(str(velocity)+" M/S")
+	speedUI.set_text(str(velocity)+" m/s")
 	
 func displayCheckPoints():
-	var checkpoints = get_tree().current_scene.get_node("Map/CheckPoints")
-	checkpointUI.set_text(str(checkpoints.checkPointIndex) + "/" + str(checkpoints.get_child_count()))
-	
+	var objectives = get_tree().current_scene.get_node("Map/Objectives")
+	checkpointUI.set_text(str(objectives.checkPointIndex) + "/" + str(objectives.get_node("Checkpoints").get_child_count()))
+
+func displayDistance():
+	var objectivePoint = get_tree().current_scene.get_node("Map/Objectives").objectivePoint
+	distanceUI.set_text(str(int((objectivePoint.global_position-get_parent().global_position).length())) + " m")
+
+func displayTime():
+	var objectives = get_tree().current_scene.get_node("Map/Objectives")
+	timerUI.set_text(str(int(objectives.get_node("CheckpointTimer").time_left)) + " s")
+
 func displayHealth():
 	healthUI.value = player.remainingHealth
 	

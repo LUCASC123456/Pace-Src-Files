@@ -31,8 +31,9 @@ func _on_play_button_pressed() -> void:
 	var player = playerScene.instantiate()
 	get_tree().current_scene.get_node("PlayerCharacter").add_child(player)
 	
-	var checkpoints = get_tree().current_scene.get_node("Map/CheckPoints")
-	player.global_position = checkpoints.spawnPoint.global_position
+	var objectives = get_tree().current_scene.get_node("Map/Objectives")
+	var checkpoints = objectives.get_node("Checkpoints")
+	player.global_position = objectives.spawnPoint.global_position
 	for checkPoint in checkpoints.get_children():
 		checkPoint.entered = false
 	

@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var vBoxOne = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer
 @onready var vBoxTwo = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2
+
 var pauseMenuEnabled : bool = false
 var mouseFree : bool = false 
 
@@ -65,10 +66,12 @@ func _on_exit_button_2_pressed() -> void:
 	var player = get_parent()
 	player.queue_free()
 	
-	var checkpoints = get_tree().current_scene.get_node("Map/CheckPoints")
-	checkpoints.spawnPoint = checkpoints.get_node("StartCheckPoint")
-	checkpoints.objectivePoint = checkpoints.get_node("CheckPoint")
-	checkpoints.checkPointIndex = 0
+	var objectives = get_tree().current_scene.get_node("Map/Objectives")
+	var checkpoints = objectives.get_node("Checkpoints")
+	objectives.spawnPoint = checkpoints.get_node("StartCheckpoint")
+	objectives.get_node("CheckpointTimer").stop()
+	objectives.objectivePoint = checkpoints.get_node("Checkpoint")
+	objectives.checkPointIndex = 0
 	
 	var mainMenu = get_tree().current_scene.get_node("Camera/Camera3D/MainMenu")
 	mainMenu.setMainMenu(true, true)

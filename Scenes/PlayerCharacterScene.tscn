@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bwggrf7sbmkcv"]
+[gd_scene load_steps=36 format=3 uid="uid://bwggrf7sbmkcv"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/PlayerCharacterScript.gd" id="1_5dbx1"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/CameraScript.gd" id="2_x12n0"]
@@ -146,6 +146,28 @@ border_width_top = 5
 border_width_bottom = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_38hk4"]
+line_spacing = 5.0
+font_size = 50
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7oeq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_top = 5
+border_width_bottom = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_osw50"]
+line_spacing = 5.0
+font_size = 50
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ihbw0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_top = 5
+border_width_bottom = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_w23t4"]
 line_spacing = 5.0
 font_size = 50
 outline_size = 1
@@ -363,8 +385,9 @@ mouse_filter = 1
 [node name="BloodContainer" type="TextureRect" parent="HUD"]
 material = SubResource("ShaderMaterial_alyi7")
 layout_mode = 0
+offset_top = 3.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 651.0
 texture = ExtResource("7_0m3tf")
 
 [node name="SpeedUI" type="Label" parent="HUD"]
@@ -402,6 +425,56 @@ offset_right = 200.0
 offset_bottom = 75.0
 theme_override_font_sizes/font_size = 15
 text = "STAGE
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DistanceUI" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 922.0
+offset_top = 30.0
+offset_right = 1122.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_i7oeq")
+label_settings = SubResource("LabelSettings_osw50")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="HUD/DistanceUI"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 128.0
+offset_top = 53.0
+offset_right = 200.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 15
+text = "DISTANCE
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerUI" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 962.0
+offset_top = 115.0
+offset_right = 1122.0
+offset_bottom = 195.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_ihbw0")
+label_settings = SubResource("LabelSettings_w23t4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="HUD/TimerUI"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 124.0
+offset_top = 53.0
+offset_right = 160.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 15
+text = "TIME
 "
 horizontal_alignment = 1
 vertical_alignment = 1
