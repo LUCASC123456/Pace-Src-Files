@@ -1,13 +1,19 @@
 extends CanvasLayer
 
+@export var leaderboard : CanvasLayer
+@export var optionsMenu : CanvasLayer
+
+@onready var levelUI = $LevelsUI
+
 var mainMenuEnabled : bool = false
 var mouseFree : bool = false 
 
-@export var optionsMenu : CanvasLayer
-
 func _ready():
 	setMainMenu(true, true)
-	
+
+func _process(delta: float) -> void:
+	levelUI.text = "LEVEL: " + str(int(floor(SaveManager.saveData["level"])))
+
 func setMainMenu(value : bool, enable : bool):
 	#set the main menu behaviour (visibility, mouse control, ...)
 	visible = value
@@ -40,7 +46,14 @@ func _on_play_button_pressed() -> void:
 	#close main menu
 	setMainMenu(false, false)
 
-func _on_options_button_pressed():
+func _on_leaderboard_button_pressed() -> void:
+	if leaderboard != null:
+		setMainMenu(false, true)
+		leaderboard.setLeaderboard(true) #open leaderboard menu
+	else:
+		pass
+
+func _on_options_button_pressed() -> void:
 	#close main menu, but keep it enabled, to block possible reopen while being on the options menu
 	if optionsMenu != null:
 		setMainMenu(false, true)

@@ -17,6 +17,8 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 [autoload]
 
 SettingsManager="*res://Scripts/Others/SettingsManagerScript.gd"
+SaveManager="*res://Scripts/Others/SaveManagerScript.gd"
+GlobalLeaderboard="*res://Scripts/Others/GlobalLeaderboardScript.gd"
 
 [display]
 
