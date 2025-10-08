@@ -46,6 +46,11 @@ func _on_objectives_lose() -> void:
 	distanceTravelledLabel.set_text("DISTANCE TRAVELLED: " + str(int(distanceTravelled)) + "m")
 	damageDealthLabel.set_text("DAMAGE DEALT: " + str(damageDealt) + "hp")
 	
+	SaveManager.updateStatsLose(timeTaken, distanceTravelled, damageDealt)
+	
+	var playerId = "Machine_" + OS.get_unique_id()
+	GlobalLeaderboard.uploadStats(playerId, SaveManager.saveData)
+	
 	timeTaken = 0
 	distanceTravelled = 0
 	damageDealt = 0

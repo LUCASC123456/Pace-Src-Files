@@ -1,5 +1,7 @@
 extends CanvasLayer
  
+const SAVEPATH := "user://MachineSave.json"
+
 @onready var timeTakenLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/TimeTakenLabel
 @onready var distanceTravelledLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/DistanceTravelledLabel
 @onready var damageDealthLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/DamageDealtLabel
@@ -44,6 +46,11 @@ func _on_finish_check_point_win(area : Area3D) -> void:
 	timeTakenLabel.set_text("TIME TAKEN: " + str(int(timeTaken)) + "s")
 	distanceTravelledLabel.set_text("DISTANCE TRAVELLED: " + str(int(distanceTravelled)) + "m")
 	damageDealthLabel.set_text("DAMAGE DEALT: " + str(damageDealt) + "hp")
+	
+	SaveManager.updateStatsWin(timeTaken, distanceTravelled, damageDealt)
+	
+	var playerId = "Machine_" + OS.get_unique_id()
+	GlobalLeaderboard.uploadStats(playerId, SaveManager.saveData)
 	
 	timeTaken = 0
 	distanceTravelled = 0
