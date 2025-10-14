@@ -1,114 +1,223 @@
-[gd_scene load_steps=5 format=3 uid="uid://dh3ln04ijax8n"]
+[gd_scene load_steps=12 format=3 uid="uid://dh3ln04ijax8n"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/PauseMenuScript.gd" id="1_oxp60"]
+[ext_resource type="FontFile" uid="uid://djpw2ijx7vmjg" path="res://Arts/Fonts/Ranga-Regular.ttf" id="2_7by2n"]
+[ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="2_v60u8"]
 [ext_resource type="PackedScene" uid="uid://bdhpuj7itpv6j" path="res://Scenes/OptionsMenuScene.tscn" id="3_0w74v"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_eaa6r"]
-line_spacing = 5.0
-font_size = 80
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pp7xw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ow2yh"]
-line_spacing = 5.0
-font_size = 60
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7pct"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12qjg"]
+bg_color = Color(0.501961, 0.501961, 0.592157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilrgu"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6lsp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 5
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yv0a"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qebfo"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 6
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("optionsMenu")]
 script = ExtResource("1_oxp60")
 optionsMenu = NodePath("OptionsMenu")
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
-self_modulate = Color(1, 1, 1, 0)
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer2"]
-custom_minimum_size = Vector2(700, 600)
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Control" type="Control" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer2/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/PanelContainer/CenterContainer"]
+[node name="PauseLabel" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="PausedLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.721569, 0.619608, 0.203922, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_constants/line_spacing = 5
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_7by2n")
+theme_override_font_sizes/font_size = 100
 text = "PAUSED"
-label_settings = SubResource("LabelSettings_eaa6r")
-horizontal_alignment = 1
-vertical_alignment = 1
+horizontal_alignment = 2
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 4
 
-[node name="ResumeButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
+[node name="ResumeButton" type="Button" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_v60u8")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/focus = SubResource("StyleBoxFlat_pp7xw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_g7pct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12qjg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ilrgu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_q6lsp")
 text = "RESUME
 "
+alignment = 2
 
-[node name="HSeparator2" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(500, 0)
+[node name="OptionsButton" type="Button" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="OptionsButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_v60u8")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_pp7xw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_g7pct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12qjg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ilrgu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5yv0a")
 text = "OPTIONS"
+alignment = 2
 
-[node name="HSeparator3" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(500, 0)
+[node name="ExitButton" type="Button" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="ExitButton1" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_v60u8")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_pp7xw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_g7pct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12qjg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ilrgu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5yv0a")
 text = "EXIT"
+alignment = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer2/PanelContainer/CenterContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 100
 
-[node name="ConformationLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
+[node name="ConformationLabel" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.721569, 0.619608, 0.203922, 1)
+theme_override_fonts/font = ExtResource("2_7by2n")
+theme_override_font_sizes/font_size = 81
 text = "ARE YOU SURE YOU WANT TO EXIT?"
-label_settings = SubResource("LabelSettings_ow2yh")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ExitButton2" type="Button" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
-theme_override_constants/separation = 40
+size_flags_horizontal = 4
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_v60u8")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/focus = SubResource("StyleBoxFlat_pp7xw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_g7pct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12qjg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ilrgu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qebfo")
+text = "EXIT"
 
-[node name="ExitButton2" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(500, 80)
+[node name="BackButton" type="Button" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "EXIT"
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_v60u8")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/focus = SubResource("StyleBoxFlat_pp7xw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_g7pct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12qjg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ilrgu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qebfo")
+text = "	BACK"
+
+[node name="Control2" type="Control" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="OptionsMenu" parent="." node_paths=PackedStringArray("pauseMenu") instance=ExtResource("3_0w74v")]
 pauseMenu = NodePath("..")
 
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/ExitButton1" to="." method="_on_exit_button_1_pressed"]
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2/ExitButton2" to="." method="_on_exit_button_2_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/ExitButton2" to="." method="_on_exit_button_2_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -1,12 +1,71 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdhpuj7itpv6j"]
+[gd_scene load_steps=17 format=3 uid="uid://bdhpuj7itpv6j"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/OptionsMenuScript.gd" id="1_bupa7"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/InputManagerScript.gd" id="2_dr6kr"]
+[ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="3_4rgr8"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/VolumeManagementScript.gd" id="4_ss2nf"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_kjv5q"]
-line_spacing = 5.0
-font_size = 42
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06xsy"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bxf3t"]
+bg_color = Color(0.460995, 0.460995, 0.460995, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43rs4"]
+bg_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ch2r"]
+bg_color = Color(0.502719, 0.502719, 0.502718, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l2ar"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d2byy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ylopc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5akko"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0th71"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0tk2"]
+bg_color = Color(0.501961, 0.501961, 0.592157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch7ws"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ujij"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 6
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [node name="OptionsMenu" type="CanvasLayer"]
 script = ExtResource("1_bupa7")
@@ -24,18 +83,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_unselected_color = Color(0.721569, 0.619608, 0.203922, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
 tab_alignment = 1
 current_tab = 2
 
-[node name="Controls" type="MarginContainer" parent="TabContainer"]
+[node name="CONTROLS" type="MarginContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Control" type="Control" parent="TabContainer/Controls"]
+[node name="Control" type="Control" parent="TabContainer/CONTROLS"]
 layout_mode = 2
 
-[node name="InputsLabel" type="Label" parent="TabContainer/Controls/Control"]
+[node name="InputsLabel" type="Label" parent="TabContainer/CONTROLS/Control"]
 layout_mode = 2
 offset_left = 527.0
 offset_top = 20.0
@@ -44,12 +105,14 @@ offset_bottom = 45.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
 text = "INPUTS : "
-label_settings = SubResource("LabelSettings_kjv5q")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Controls/Control"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/CONTROLS/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -63,14 +126,14 @@ offset_bottom = 182.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="InputList" type="VBoxContainer" parent="TabContainer/Controls/Control/ScrollContainer"]
+[node name="InputList" type="VBoxContainer" parent="TabContainer/CONTROLS/Control/ScrollContainer"]
 custom_minimum_size = Vector2(580, 450)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="ResetButton" type="Button" parent="TabContainer/Controls/Control"]
+[node name="ResetButton" type="Button" parent="TabContainer/CONTROLS/Control"]
 custom_minimum_size = Vector2(200, 70)
 layout_mode = 1
 anchors_preset = 7
@@ -84,123 +147,158 @@ offset_right = 100.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 42
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_06xsy")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_bxf3t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_43rs4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5ch2r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2l2ar")
 text = "RESET"
 
-[node name="Video" type="MarginContainer" parent="TabContainer"]
+[node name="VIDEO" type="MarginContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="TabContainer/Video"]
+[node name="CenterContainer" type="CenterContainer" parent="TabContainer/VIDEO"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Video/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/VIDEO/CenterContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="FullscreenOption" type="HBoxContainer" parent="TabContainer/Video/CenterContainer/VBoxContainer"]
+[node name="FullscreenOption" type="HBoxContainer" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/Video/CenterContainer/VBoxContainer/FullscreenOption"]
+[node name="Label" type="Label" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/FullscreenOption"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
 text = "FULLSCREEN :"
 
-[node name="VSeparator" type="VSeparator" parent="TabContainer/Video/CenterContainer/VBoxContainer/FullscreenOption"]
+[node name="VSeparator" type="VSeparator" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/FullscreenOption"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 100
 
-[node name="FullscreenCheckBox" type="CheckBox" parent="TabContainer/Video/CenterContainer/VBoxContainer/FullscreenOption"]
+[node name="FullscreenCheckBox" type="CheckBox" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/FullscreenOption"]
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d2byy")
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Video/CenterContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="ResolutionOption" type="HBoxContainer" parent="TabContainer/Video/CenterContainer/VBoxContainer"]
+[node name="ResolutionOption" type="HBoxContainer" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/Video/CenterContainer/VBoxContainer/ResolutionOption"]
+[node name="Label" type="Label" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
 text = "RESOLUTION :"
 
-[node name="VSeparator" type="VSeparator" parent="TabContainer/Video/CenterContainer/VBoxContainer/ResolutionOption"]
+[node name="VSeparator" type="VSeparator" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 70
 
-[node name="OptionButton" type="OptionButton" parent="TabContainer/Video/CenterContainer/VBoxContainer/ResolutionOption"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption"]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="HSeparator2" type="HSeparator" parent="TabContainer/Video/CenterContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Audio" type="MarginContainer" parent="TabContainer"]
+[node name="AUDIO" type="MarginContainer" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="TabContainer/Audio"]
+[node name="CenterContainer" type="CenterContainer" parent="TabContainer/AUDIO"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="HBoxContainer" parent="TabContainer/Audio/CenterContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="TabContainer/AUDIO/CenterContainer"]
 layout_mode = 2
 
-[node name="VolumeLabels" type="VBoxContainer" parent="TabContainer/Audio/CenterContainer/VBoxContainer"]
+[node name="VolumeLabels" type="VBoxContainer" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="MainVolumeLabel" type="Label" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels"]
+[node name="MainVolumeLabel" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
 text = "MAIN VOLUME :"
 justification_flags = 131
 
-[node name="MusicVolumeLabel" type="Label" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels"]
+[node name="MusicVolumeLabel" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
 text = "MUSIC VOLUME :"
 justification_flags = 131
 
-[node name="SoundVolumeLabel" type="Label" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels"]
+[node name="SoundVolumeLabel" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
 text = "SOUND VOLUME :"
 justification_flags = 131
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels"]
+[node name="HSeparator" type="HSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 35
 
-[node name="MuteOption" type="HBoxContainer" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels"]
+[node name="MuteOption" type="HBoxContainer" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
+[node name="Label" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 50
 text = "MUTE :"
 
-[node name="VSeparator" type="VSeparator" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
+[node name="VSeparator" type="VSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 70
 
-[node name="CheckBox" type="CheckBox" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
+[node name="CheckBox" type="CheckBox" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ylopc")
 
-[node name="HSeparator" type="VSeparator" parent="TabContainer/Audio/CenterContainer/VBoxContainer"]
+[node name="HSeparator" type="VSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="VolumesSliders" type="VBoxContainer" parent="TabContainer/Audio/CenterContainer/VBoxContainer"]
+[node name="VolumesSliders" type="VBoxContainer" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumesSliders"]
+[node name="HSeparator" type="HSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = 25
 
-[node name="MainVolumeSlider" type="HSlider" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumesSliders"]
+[node name="MainVolumeSlider" type="HSlider" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -211,12 +309,12 @@ value = 1.0
 script = ExtResource("4_ss2nf")
 busName = "Master"
 
-[node name="HSeparator2" type="HSeparator" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumesSliders"]
+[node name="HSeparator2" type="HSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 50
 
-[node name="MusicVolumeSlider" type="HSlider" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumesSliders"]
+[node name="MusicVolumeSlider" type="HSlider" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -227,12 +325,12 @@ value = 1.0
 script = ExtResource("4_ss2nf")
 busName = "Music"
 
-[node name="HSeparator3" type="HSeparator" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumesSliders"]
+[node name="HSeparator3" type="HSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 50
 
-[node name="SoundVolumeSlider" type="HSlider" parent="TabContainer/Audio/CenterContainer/VBoxContainer/VolumesSliders"]
+[node name="SoundVolumeSlider" type="HSlider" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -244,25 +342,29 @@ script = ExtResource("4_ss2nf")
 busName = "Sound"
 
 [node name="BackButton" type="Button" parent="."]
-custom_minimum_size = Vector2(220, 90)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -553.0
-offset_top = 205.0
-offset_right = -333.0
-offset_bottom = 295.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 47
-text = "BACK
-"
+custom_minimum_size = Vector2(200, 0)
+offset_left = 30.0
+offset_top = 502.0
+offset_right = 230.0
+offset_bottom = 618.0
+size_flags_horizontal = 4
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_4rgr8")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/focus = SubResource("StyleBoxFlat_5akko")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_0th71")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u0tk2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ch7ws")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ujij")
+text = "	BACK"
 
-[connection signal="pressed" from="TabContainer/Controls/Control/ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="TabContainer/Video/CenterContainer/VBoxContainer/FullscreenOption/FullscreenCheckBox" to="." method="_on_fullscreen_check_box_pressed"]
-[connection signal="item_selected" from="TabContainer/Video/CenterContainer/VBoxContainer/ResolutionOption/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="pressed" from="TabContainer/Audio/CenterContainer/VBoxContainer/VolumeLabels/MuteOption/CheckBox" to="." method="_on_check_box_pressed"]
-[connection signal="value_changed" from="TabContainer/Audio/CenterContainer/VBoxContainer/VolumesSliders/MainVolumeSlider" to="." method="_on_main_volume_slider_value_changed"]
+[connection signal="pressed" from="TabContainer/CONTROLS/Control/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="TabContainer/VIDEO/CenterContainer/VBoxContainer/FullscreenOption/FullscreenCheckBox" to="." method="_on_fullscreen_check_box_pressed"]
+[connection signal="item_selected" from="TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption/CheckBox" to="." method="_on_check_box_pressed"]
+[connection signal="value_changed" from="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders/MainVolumeSlider" to="." method="_on_main_volume_slider_value_changed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -49,13 +49,18 @@ func displayLeaderboard():
 		row.custom_minimum_size.x = headerRow.size.x
 		row.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		row.add_theme_constant_override("separation", 8)
-
+		
 		var nameLabel := Label.new()
+		var customFont := FontFile.new()
+		customFont.font_data = load("res://Arts/Fonts/Ranga-Bold.ttf")
 		nameLabel.text = str(entry.get("player_id", "Unknown"))
 		nameLabel.custom_minimum_size.x = nameHeader.size.x
 		nameLabel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		nameLabel.add_theme_color_override("font_color", Color(1, 0.831, 0.231))
+		nameLabel.add_theme_font_override("font", customFont)
+		nameLabel.add_theme_font_size_override("font_size", 20)
 		row.add_child(nameLabel)
-
+		
 		for key in ["best_time", "lowest_distance", "least_damage", "level"]:
 			var label := Label.new()
 			var vSeperator := VSeparator.new()
@@ -63,22 +68,21 @@ func displayLeaderboard():
 			if key == "best_time":
 				label.text = str(entry.get(key, "-")) + "s"
 				label.custom_minimum_size.x = timeHeader.size.x
-				print(label.custom_minimum_size.x)
 			elif key == "lowest_distance":
 				label.text = str(entry.get(key, "-")) + "m"
 				label.custom_minimum_size.x = distanceHeader.size.x
-				print(label.custom_minimum_size.x)
 			elif key == "least_damage":
 				label.text = str(entry.get(key, "-")) + "hp"
 				label.custom_minimum_size.x = damageHeader.size.x
-				print(label.custom_minimum_size.x)
 			else:
 				label.text = str(entry.get(key, "-"))
 				label.custom_minimum_size.x = levelHeader.size.x
-				print(label.custom_minimum_size.x)
 			
 			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			label.clip_text = true
+			label.add_theme_color_override("font_color", Color(1, 0.831, 0.231))
+			label.add_theme_font_override("font", customFont)
+			label.add_theme_font_size_override("font_size", 25)
 			row.add_child(vSeperator)
 			row.add_child(label)
 		

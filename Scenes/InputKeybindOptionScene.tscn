@@ -1,11 +1,45 @@
-[gd_scene format=3 uid="uid://bmymn0syhajdv"]
+[gd_scene load_steps=6 format=3 uid="uid://bmymn0syhajdv"]
+
+[ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="1_n33et"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23aub"]
+bg_color = Color(0.502719, 0.502719, 0.502718, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jno0"]
+bg_color = Color(0.502719, 0.502719, 0.502718, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhwl4"]
+bg_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wbxs"]
+bg_color = Color(0.502719, 0.502719, 0.502718, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
 
 [node name="InputOption" type="HBoxContainer"]
+offset_right = 559.0
+offset_bottom = 378.0
+size_flags_vertical = 3
 
 [node name="ActionLabel" type="Label" parent="."]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
-text = "Input action"
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("1_n33et")
+theme_override_font_sizes/font_size = 50
+text = "INPUT ACTION"
 
 [node name="VSeparator" type="VSeparator" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -16,6 +50,17 @@ theme_override_constants/separation = 200
 [node name="InputButton" type="Button" parent="."]
 custom_minimum_size = Vector2(110, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Key"
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("1_n33et")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_23aub")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_4jno0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bhwl4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7wbxs")
+text = "KEY"
 autowrap_mode = 3
+clip_text = true

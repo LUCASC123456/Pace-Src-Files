@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bwggrf7sbmkcv"]
+[gd_scene load_steps=38 format=3 uid="uid://bwggrf7sbmkcv"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/PlayerCharacterScript.gd" id="1_5dbx1"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/CameraScript.gd" id="2_x12n0"]
@@ -7,6 +7,8 @@
 [ext_resource type="Shader" path="res://Scenes/PlayerCharacterScene.gdshader" id="6_eg5bf"]
 [ext_resource type="Texture2D" uid="uid://da3woq4q3j1cr" path="res://Arts/Textures/blood_splatter.png" id="7_0m3tf"]
 [ext_resource type="Texture2D" uid="uid://djoe54ae3gp0a" path="res://Arts/Textures/kenney_prototype_textures/orange/texture_06.png" id="7_jclwn"]
+[ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="8_o4s6e"]
+[ext_resource type="Texture2D" uid="uid://cneb2wolpjacq" path="res://Arts/Textures/heart.png" id="9_dcn75"]
 [ext_resource type="Shader" path="res://Arts/Shaders/SpeedLinesShader.gdshader" id="12_8u6b8"]
 
 [sub_resource type="Curve" id="Curve_qvv7t"]
@@ -133,10 +135,12 @@ shader_parameter/color = Color(1, 1, 1, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_top = 5
 border_width_bottom = 5
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_02rm5"]
 line_spacing = 5.0
-font_size = 50
+font_size = 60
+font_color = Color(1, 0.858824, 0.231373, 1)
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
@@ -144,10 +148,12 @@ outline_color = Color(0, 0, 0, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_top = 5
 border_width_bottom = 5
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_38hk4"]
 line_spacing = 5.0
-font_size = 50
+font_size = 60
+font_color = Color(1, 0.858824, 0.231373, 1)
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
@@ -155,10 +161,12 @@ outline_color = Color(0, 0, 0, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_top = 5
 border_width_bottom = 5
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_osw50"]
 line_spacing = 5.0
-font_size = 50
+font_size = 60
+font_color = Color(1, 0.858824, 0.231373, 1)
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
@@ -166,10 +174,12 @@ outline_color = Color(0, 0, 0, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_top = 5
 border_width_bottom = 5
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_w23t4"]
 line_spacing = 5.0
-font_size = 50
+font_size = 60
+font_color = Color(1, 0.858824, 0.231373, 1)
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
@@ -179,13 +189,14 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13xfk"]
-bg_color = Color(0.752941, 0.172549, 0.172549, 1)
+bg_color = Color(0.780392, 0.164706, 0.164706, 1)
 
 [node name="PlayerCharacter" type="CharacterBody3D" groups=["PlayerCharacter"]]
 collision_layer = 2
@@ -393,13 +404,13 @@ texture = ExtResource("7_0m3tf")
 [node name="SpeedUI" type="Label" parent="HUD"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 902.0
-offset_top = 538.0
+offset_left = 912.0
+offset_top = 519.0
 offset_right = 1122.0
-offset_bottom = 618.0
-theme_override_font_sizes/font_size = 40
+offset_bottom = 617.0
+theme_override_fonts/font = ExtResource("8_o4s6e")
+theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_ga166")
-text = "..................."
 label_settings = SubResource("LabelSettings_02rm5")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -408,22 +419,24 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 30.0
 offset_top = 30.0
-offset_right = 230.0
-offset_bottom = 110.0
+offset_right = 190.0
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("8_o4s6e")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_l0ffd")
 label_settings = SubResource("LabelSettings_38hk4")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="HUD/CheckpointUI"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 154.0
-offset_top = 53.0
-offset_right = 200.0
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 15
+offset_left = 117.0
+offset_top = 68.0
+offset_right = 160.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(1, 0.847059, 0.231373, 1)
+theme_override_fonts/font = ExtResource("8_o4s6e")
+theme_override_font_sizes/font_size = 20
 text = "STAGE
 "
 horizontal_alignment = 1
@@ -431,24 +444,26 @@ vertical_alignment = 1
 
 [node name="DistanceUI" type="Label" parent="HUD"]
 layout_mode = 0
-offset_left = 922.0
+offset_left = 912.0
 offset_top = 30.0
 offset_right = 1122.0
-offset_bottom = 110.0
-theme_override_font_sizes/font_size = 50
+offset_bottom = 128.0
+theme_override_fonts/font = ExtResource("8_o4s6e")
+theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_i7oeq")
 label_settings = SubResource("LabelSettings_osw50")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="HUD/DistanceUI"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 128.0
-offset_top = 53.0
+offset_left = 133.0
+offset_top = 68.0
 offset_right = 200.0
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 15
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(1, 0.847059, 0.231373, 1)
+theme_override_fonts/font = ExtResource("8_o4s6e")
+theme_override_font_sizes/font_size = 20
 text = "DISTANCE
 "
 horizontal_alignment = 1
@@ -456,24 +471,27 @@ vertical_alignment = 1
 
 [node name="TimerUI" type="Label" parent="HUD"]
 layout_mode = 0
-offset_left = 962.0
-offset_top = 115.0
+offset_left = 932.0
+offset_top = 137.0
 offset_right = 1122.0
-offset_bottom = 195.0
-theme_override_font_sizes/font_size = 50
+offset_bottom = 210.0
+theme_override_colors/font_color = Color(1, 0.847059, 0.231373, 1)
+theme_override_fonts/font = ExtResource("8_o4s6e")
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_ihbw0")
 label_settings = SubResource("LabelSettings_w23t4")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="HUD/TimerUI"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 124.0
-offset_top = 53.0
-offset_right = 160.0
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 15
+offset_left = 156.0
+offset_top = 44.0
+offset_right = 190.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(1, 0.847059, 0.231373, 1)
+theme_override_fonts/font = ExtResource("8_o4s6e")
+theme_override_font_sizes/font_size = 20
 text = "TIME
 "
 horizontal_alignment = 1
@@ -481,15 +499,23 @@ vertical_alignment = 1
 
 [node name="HealthUI" type="ProgressBar" parent="HUD"]
 layout_mode = 0
-offset_left = 907.0
-offset_top = 498.0
+offset_left = 917.0
+offset_top = 479.0
 offset_right = 1117.0
-offset_bottom = 528.0
+offset_bottom = 509.0
 theme_override_styles/background = SubResource("StyleBoxFlat_qe3yk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_13xfk")
 max_value = 500000.0
 value = 500000.0
 show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HealthUI"]
+layout_mode = 0
+offset_left = -45.0
+offset_top = -5.0
+offset_right = -5.0
+offset_bottom = 35.0
+texture = ExtResource("9_dcn75")
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_3wmtt")]
 visible = false

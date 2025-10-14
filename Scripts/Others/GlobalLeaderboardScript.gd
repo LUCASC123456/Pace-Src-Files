@@ -25,15 +25,15 @@ func httpRequest(url: String, method: int, body: Dictionary = {}) -> HTTPRequest
 func uploadStats(player_id: String, stats: Dictionary) -> void:
 	var url := SUPABASE_URL + "/" + TABLE + "?player_id=eq." + player_id
 	var httpGet = httpRequest(url, HTTPClient.METHOD_GET)
-
+	
 	httpGet.request_completed.connect(func(result, responseCode, headers, body):
 		httpGet.queue_free()
-
+		
 		if responseCode != 200:
 			return
 		else:
 			pass
-
+		
 		var text = body.get_string_from_utf8()
 		var parseResult = JSON.parse_string(text)
 		var existing := {}
@@ -41,7 +41,7 @@ func uploadStats(player_id: String, stats: Dictionary) -> void:
 			existing = parseResult[0]
 		else:
 			pass
-
+		
 		var updated := {
 			"player_id": player_id,
 			"level": int(max(stats.get("level", 0), existing.get("level", 0))),
@@ -49,7 +49,7 @@ func uploadStats(player_id: String, stats: Dictionary) -> void:
 			"lowest_distance": int(min(stats.get("lowestDistance", INF), existing.get("lowest_distance", INF))),
 			"least_damage": int(min(stats.get("leastDamage", INF), existing.get("least_damage", INF)))
 		}
-
+		
 		var urlUpsert := SUPABASE_URL + "/" + TABLE + "?on_conflict=player_id"
 		var httpPost = httpRequest(urlUpsert, HTTPClient.METHOD_POST, updated)
 		httpPost.request_completed.connect(func(result2, responseCode2, headers2, body2):

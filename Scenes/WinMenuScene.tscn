@@ -1,122 +1,151 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmriwaexowk04"]
+[gd_scene load_steps=10 format=3 uid="uid://cmriwaexowk04"]
 
 [ext_resource type="Script" path="res://Scripts/Others/WinMenuScript.gd" id="1_4rrjo"]
+[ext_resource type="FontFile" uid="uid://djpw2ijx7vmjg" path="res://Arts/Fonts/Ranga-Regular.ttf" id="2_ejytl"]
+[ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="3_nqlce"]
 
-[sub_resource type="FontFile" id="FontFile_ahg5i"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/80/0/ascent = 0.0
-cache/0/80/0/descent = 0.0
-cache/0/80/0/underline_position = 0.0
-cache/0/80/0/underline_thickness = 0.0
-cache/0/80/0/scale = 1.0
-cache/0/40/0/ascent = 0.0
-cache/0/40/0/descent = 0.0
-cache/0/40/0/underline_position = 0.0
-cache/0/40/0/underline_thickness = 0.0
-cache/0/40/0/scale = 1.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sh61r"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_m126j"]
-line_spacing = 5.0
-font = SubResource("FontFile_ahg5i")
-font_size = 80
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cfwq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
 
-[sub_resource type="FontFile" id="FontFile_7xioe"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t400d"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_w5p3x"]
-font = SubResource("FontFile_7xioe")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyku3"]
+bg_color = Color(0.501961, 0.501961, 0.592157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yh7ge"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxht8"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [node name="WinMenu" type="CanvasLayer"]
 script = ExtResource("1_4rrjo")
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
-self_modulate = Color(1, 1, 1, 0)
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer2"]
-custom_minimum_size = Vector2(700, 600)
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Control" type="Control" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer2/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/PanelContainer/CenterContainer"]
+[node name="WinLabel" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.721569, 0.619608, 0.203922, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_constants/line_spacing = 5
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_ejytl")
+theme_override_font_sizes/font_size = 100
+text = "YOU WON"
+horizontal_alignment = 2
 
-[node name="WinLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "YOU WON
-"
-label_settings = SubResource("LabelSettings_m126j")
-horizontal_alignment = 1
+theme_override_constants/separation = 4
+
+[node name="TimeTakenLabel" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 12
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_nqlce")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_sh61r")
+text = "..................."
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="DistanceTravelledLabel" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="TimeTakenLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "TIME TAKEN: ..."
-label_settings = SubResource("LabelSettings_w5p3x")
-horizontal_alignment = 1
+size_flags_horizontal = 12
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_nqlce")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_sh61r")
+text = "..................."
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="DamageDealtLabel" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="DistanceTravelledLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "DISTANCE TRAVELLED: ..."
-label_settings = SubResource("LabelSettings_w5p3x")
-horizontal_alignment = 1
+size_flags_horizontal = 12
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_nqlce")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_sh61r")
+text = "..................."
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HSeparator3" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="ExitButton" type="Button" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_constants/separation = 40
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_nqlce")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_4cfwq")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_t400d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oyku3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yh7ge")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cxht8")
+text = "EXIT"
+alignment = 2
 
-[node name="DamageDealtLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
+[node name="Control2" type="Control" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "DAMAGE DEALT: ..."
-label_settings = SubResource("LabelSettings_w5p3x")
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="HSeparator4" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="ExitButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
-theme_override_font_sizes/font_size = 55
-text = "EXIT
-"
-
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

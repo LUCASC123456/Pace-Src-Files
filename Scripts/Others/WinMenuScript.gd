@@ -2,10 +2,10 @@ extends CanvasLayer
  
 const SAVEPATH := "user://MachineSave.json"
 
-@onready var timeTakenLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/TimeTakenLabel
-@onready var distanceTravelledLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/DistanceTravelledLabel
-@onready var damageDealthLabel = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/DamageDealtLabel
-@onready var exitButton = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/ExitButton
+@onready var timeTakenLabel = $Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/TimeTakenLabel
+@onready var distanceTravelledLabel = $Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/DistanceTravelledLabel
+@onready var damageDealthLabel = $Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/DamageDealtLabel
+@onready var exitButton = $Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/ExitButton
 
 var timeTaken : float
 var distanceTravelled : float

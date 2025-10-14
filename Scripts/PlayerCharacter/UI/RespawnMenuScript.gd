@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var respawnButton = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/RespawnButton
+@onready var respawnButton = $Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/RespawnButton
 @onready var winMenu = $"../../../Camera/Camera3D/WinMenu"
 @onready var loseMenu = $"../../../Camera/Camera3D/LoseMenu"
 

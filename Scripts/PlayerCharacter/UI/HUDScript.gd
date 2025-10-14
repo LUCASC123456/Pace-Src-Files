@@ -31,7 +31,10 @@ func displayDistance():
 
 func displayTime():
 	var objectives = get_tree().current_scene.get_node("Map/Objectives")
-	timerUI.set_text(str(int(objectives.get_node("CheckpointTimer").time_left)) + " s")
+	var seconds = int(objectives.get_node("CheckpointTimer").time_left) % 60
+	var minutes = int(floor(objectives.get_node("CheckpointTimer").time_left/60))
+	var hours = int(floor(objectives.get_node("CheckpointTimer").time_left/3600))
+	timerUI.set_text(str(int(hours)) + ":" + str(int(minutes)) + ":" + str(int(seconds)))
 
 func displayHealth():
 	healthUI.value = player.remainingHealth
