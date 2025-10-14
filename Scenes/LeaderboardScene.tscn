@@ -1,12 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://byvp2q7e7r17k"]
+[gd_scene load_steps=11 format=3 uid="uid://byvp2q7e7r17k"]
 
 [ext_resource type="Script" path="res://Scripts/Others/LeaderboardScript.gd" id="1_xcy53"]
+[ext_resource type="FontFile" uid="uid://djpw2ijx7vmjg" path="res://Arts/Fonts/Ranga-Regular.ttf" id="2_j6511"]
+[ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="3_yxbys"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e03qt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h73cy"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1ui3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0sp4"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x02qy"]
+bg_color = Color(0.501961, 0.501961, 0.592157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqnq8"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p15ik"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 6
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [node name="Leaderboard" type="CanvasLayer"]
 follow_viewport_enabled = true
@@ -52,9 +90,13 @@ theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
+theme_override_colors/font_color = Color(0.721569, 0.619608, 0.203922, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("2_j6511")
+theme_override_font_sizes/font_size = 100
 text = "GLOBAL LEADERBOARD"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HeaderRow" type="HBoxContainer" parent="Control/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -65,6 +107,10 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_yxbys")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_e03qt")
 text = "NAME:"
 
 [node name="VSeparator" type="VSeparator" parent="Control/Panel/MarginContainer/VBoxContainer/HeaderRow"]
@@ -74,6 +120,10 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_h73cy")
 [node name="TimeHeader" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/HeaderRow"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_yxbys")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_e03qt")
 text = "BEST TIME:"
 horizontal_alignment = 1
 
@@ -84,6 +134,10 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_h73cy")
 [node name="DistanceHeader" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/HeaderRow"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_yxbys")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_e03qt")
 text = "LOWEST DISTANCE:"
 horizontal_alignment = 1
 
@@ -94,6 +148,10 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_h73cy")
 [node name="DamageHeader" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/HeaderRow"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_yxbys")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_e03qt")
 text = "LEAST DAMAGE:"
 horizontal_alignment = 1
 
@@ -104,6 +162,10 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_h73cy")
 [node name="LevelHeader" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer/HeaderRow"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_yxbys")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_e03qt")
 text = "LEVEL:"
 horizontal_alignment = 1
 
@@ -116,20 +178,25 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="BackButton" type="Button" parent="."]
-custom_minimum_size = Vector2(220, 90)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -553.0
-offset_top = 205.0
-offset_right = -333.0
-offset_bottom = 295.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 47
-text = "BACK
-"
+custom_minimum_size = Vector2(200, 0)
+offset_left = 30.0
+offset_top = 502.0
+offset_right = 230.0
+offset_bottom = 618.0
+size_flags_horizontal = 4
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_yxbys")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/focus = SubResource("StyleBoxFlat_d1ui3")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_c0sp4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_x02qy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hqnq8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_p15ik")
+text = "	BACK"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -5,9 +5,9 @@ var busIndex : int
 
 func _ready():
 	busIndex = AudioServer.get_bus_index(busName)
-	value_changed.connect(_on_value_changed)
+	value_changed.connect(volumeValueChange)
+	
 	value = db_to_linear(AudioServer.get_bus_volume_db(busIndex))
 
-func _on_value_changed(value: float):
-	SettingsManager.set_volume(busName, value)
-	
+func volumeValueChange(soundValue: float):
+	SettingsManager.setVolume(busIndex, busName, soundValue)

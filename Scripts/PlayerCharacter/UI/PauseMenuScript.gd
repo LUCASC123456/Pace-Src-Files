@@ -1,7 +1,8 @@
 extends CanvasLayer
 
-@onready var vBoxOne = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer
-@onready var vBoxTwo = $PanelContainer2/PanelContainer/CenterContainer/VBoxContainer2
+@onready var marginContainer = $Control/PanelContainer/MarginContainer
+@onready var vBoxOne = $Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer
+@onready var vBoxTwo = $Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2
 
 var pauseMenuEnabled : bool = false
 var mouseFree : bool = false 
@@ -58,7 +59,9 @@ func _on_options_button_pressed():
 	else:
 		pass
 
-func _on_exit_button_1_pressed() -> void:
+func _on_exit_button_pressed() -> void:
+	marginContainer.add_theme_constant_override("margin_top", 0)
+	marginContainer.add_theme_color_override("margin_right", 0)
 	vBoxOne.visible = false
 	vBoxTwo.visible = true
 
@@ -81,4 +84,13 @@ func _on_exit_button_2_pressed() -> void:
 	winMenu.distanceTravelled = 0
 	winMenu.damageDealt = 0
 	
+	marginContainer.add_theme_constant_override("margin_top", 20)
+	marginContainer.add_theme_color_override("margin_right", 40)
+	
 	setPauseMenu(false, true)
+
+func _on_back_button_pressed() -> void:
+	marginContainer.add_theme_constant_override("margin_top", 20)
+	marginContainer.add_theme_color_override("margin_right", 40)
+	vBoxOne.visible = true
+	vBoxTwo.visible = false

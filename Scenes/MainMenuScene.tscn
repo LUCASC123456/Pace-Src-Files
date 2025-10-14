@@ -1,121 +1,225 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4bml644dyg7f"]
+[gd_scene load_steps=17 format=3 uid="uid://c4bml644dyg7f"]
 
 [ext_resource type="Script" path="res://Scripts/Others/MainMenuScript.gd" id="1_n0rn1"]
 [ext_resource type="PackedScene" uid="uid://bdhpuj7itpv6j" path="res://Scenes/OptionsMenuScene.tscn" id="2_itxe2"]
+[ext_resource type="FontFile" uid="uid://bl7a2tjekjrrm" path="res://Arts/Fonts/RockSalt-Regular.ttf" id="2_nj5c7"]
 [ext_resource type="PackedScene" uid="uid://byvp2q7e7r17k" path="res://Scenes/LeaderboardScene.tscn" id="3_kcbsn"]
+[ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="3_pvut8"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_td5hu"]
-line_spacing = 5.0
-font_size = 80
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1414"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_tbstf"]
-line_spacing = 5.0
-font_size = 25
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f27m6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo06g"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klv3p"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kynb1"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi10u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 5
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au5ji"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.502719, 0.502719, 0.502718, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ert1n"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bmyfs"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6wd7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kykd6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 3
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("leaderboard", "optionsMenu")]
 script = ExtResource("1_n0rn1")
 leaderboard = NodePath("Leaderboard")
 optionsMenu = NodePath("OptionsMenu")
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
-self_modulate = Color(1, 1, 1, 0)
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer2"]
-custom_minimum_size = Vector2(700, 600)
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer2/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
+alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/PanelContainer/CenterContainer"]
+[node name="Control" type="Control" parent="Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="GameLabel" type="Label" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "PACE"
-label_settings = SubResource("LabelSettings_td5hu")
+[node name="LevelsUI" type="Label" parent="Control/MarginContainer/HBoxContainer/Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 30.0
+offset_right = 187.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_pvut8")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_r1414")
+text = "..................."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 10
 
-[node name="PlayButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
+[node name="GameLabel" type="Label" parent="Control/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 55
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.533333)
+theme_override_colors/font_outline_color = Color(0.721569, 0.619608, 0.203922, 1)
+theme_override_constants/line_spacing = 5
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_nj5c7")
+theme_override_font_sizes/font_size = 100
+text = "Pace"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PlayButton" type="Button" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_pvut8")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/focus = SubResource("StyleBoxFlat_f27m6")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fo06g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_klv3p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kynb1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wi10u")
 text = "PLAY
 "
+alignment = 2
 
-[node name="HSeparator2" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(500, 0)
+[node name="LeaderboardButton" type="Button" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="LeaderboardButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
-theme_override_font_sizes/font_size = 55
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_pvut8")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_au5ji")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fo06g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ert1n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kynb1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bmyfs")
 text = "LEADERBOARD"
+alignment = 2
 
-[node name="HSeparator3" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(500, 0)
+[node name="OptionsButton" type="Button" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="OptionsButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
-theme_override_font_sizes/font_size = 55
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_pvut8")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_au5ji")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fo06g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ert1n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kynb1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o6wd7")
 text = "OPTIONS"
+alignment = 2
 
-[node name="HSeparator4" type="HSeparator" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(500, 0)
+[node name="QuitButton" type="Button" parent="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="QuitButton" type="Button" parent="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
-theme_override_font_sizes/font_size = 55
+size_flags_horizontal = 12
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
+theme_override_fonts/font = ExtResource("3_pvut8")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_au5ji")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fo06g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ert1n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kynb1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kykd6")
 text = "QUIT
 "
+alignment = 2
 
-[node name="LevelsUI" type="Label" parent="."]
-texture_filter = 1
-offset_left = 839.0
-offset_right = 1152.0
-offset_bottom = 80.0
-theme_override_font_sizes/font_size = 20
-text = "..................."
-label_settings = SubResource("LabelSettings_tbstf")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Control2" type="Control" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="OptionsMenu" parent="." node_paths=PackedStringArray("mainMenu") instance=ExtResource("2_itxe2")]
+visible = false
 mainMenu = NodePath("..")
 
 [node name="Leaderboard" parent="." node_paths=PackedStringArray("mainMenu") instance=ExtResource("3_kcbsn")]
+visible = false
 mainMenu = NodePath("..")
 
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="PanelContainer2/PanelContainer/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

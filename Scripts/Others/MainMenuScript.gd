@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var leaderboard : CanvasLayer
 @export var optionsMenu : CanvasLayer
 
-@onready var levelUI = $LevelsUI
+@onready var levelUI = $Control/MarginContainer/HBoxContainer/Control/LevelsUI
 
 var mainMenuEnabled : bool = false
 var mouseFree : bool = false 
