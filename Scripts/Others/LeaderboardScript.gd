@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+@export var mainMenu: CanvasLayer
+
 @onready var entriesContainer : VBoxContainer = $Control/Panel/MarginContainer/VBoxContainer/ScrollContainer/EntriesContainer
 @onready var headerRow = $Control/Panel/MarginContainer/VBoxContainer/HeaderRow
 @onready var nameHeader = $Control/Panel/MarginContainer/VBoxContainer/HeaderRow/NameHeader
@@ -7,8 +9,6 @@ extends CanvasLayer
 @onready var distanceHeader = $Control/Panel/MarginContainer/VBoxContainer/HeaderRow/DistanceHeader
 @onready var damageHeader = $Control/Panel/MarginContainer/VBoxContainer/HeaderRow/DamageHeader
 @onready var levelHeader = $Control/Panel/MarginContainer/VBoxContainer/HeaderRow/LevelHeader
-
-@export var mainMenu: CanvasLayer
 
 var leaderboardEnabled: bool = false
 
@@ -62,9 +62,10 @@ func displayLeaderboard():
 		row.add_child(nameLabel)
 		
 		for key in ["best_time", "lowest_distance", "least_damage", "level"]:
-			var label := Label.new()
 			var vSeperator := VSeparator.new()
+			row.add_child(vSeperator)
 			
+			var label := Label.new()
 			if key == "best_time":
 				label.text = str(entry.get(key, "-")) + "s"
 				label.custom_minimum_size.x = timeHeader.size.x
@@ -77,25 +78,25 @@ func displayLeaderboard():
 			else:
 				label.text = str(entry.get(key, "-"))
 				label.custom_minimum_size.x = levelHeader.size.x
-			
 			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			label.clip_text = true
 			label.add_theme_color_override("font_color", Color(1, 0.831, 0.231))
 			label.add_theme_font_override("font", customFont)
 			label.add_theme_font_size_override("font_size", 25)
-			row.add_child(vSeperator)
 			row.add_child(label)
 		
 		var panel := Panel.new()
 		panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		
 		if i % 2 == 0:
 			panel.add_theme_color_override("panel", Color(0.95, 0.95, 0.95))
 		else:
 			pass
-			
 		panel.add_child(row)
 		entriesContainer.add_child(panel)
+		
+		var hSeparator = HSeparator.new()
+		hSeparator.add_theme_constant_override("separation", 25)
+		entriesContainer.add_child(hSeparator)
 
 # -------------------------------
 func _on_back_button_pressed() -> void:

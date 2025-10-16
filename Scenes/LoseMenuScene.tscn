@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cs8405c58lwlp"]
 
-[ext_resource type="Script" path="res://Scenes/LoseMenuScript.gd" id="1_ymyfg"]
+[ext_resource type="Script" path="res://Scripts/LoseMenuScript.gd" id="1_ymyfg"]
 [ext_resource type="FontFile" uid="uid://djpw2ijx7vmjg" path="res://Arts/Fonts/Ranga-Regular.ttf" id="2_2tnog"]
 [ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="3_7ewt8"]
 

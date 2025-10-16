@@ -1,15 +1,17 @@
 extends CanvasLayer
 
+@export var pauseMenu : CanvasLayer
+@export var mainMenu : CanvasLayer
+
 @onready var inputKeybindBox : PackedScene = preload("res://Scenes/InputKeybindOptionScene.tscn")
+@onready var controls : MarginContainer =  $TabContainer/CONTROLS
 @onready var inputList : VBoxContainer = $TabContainer/CONTROLS/Control/ScrollContainer/InputList
+@onready var resolOptionsButton : OptionButton = $TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption/OptionButton
 
 var isRemapping : bool = false
 var actionToRemap = null
 var remappingButton = null
-
-@onready var resolOptionsButton : OptionButton = $TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption/OptionButton
 var resList : Dictionary = {}
-
 var inputActions : Dictionary = {
 	"moveLeft" : "MOVE LEFT",
 	"moveRight" : "MOVE RIGHT",
@@ -22,13 +24,10 @@ var inputActions : Dictionary = {
 	"grappleHook" : "GRAPPLE HOOK",
 	"pauseMenu" : "PAUSE MENU"
 }
-
 var masterBusIndex : int = AudioServer.get_bus_index("Master")
-
-@export var pauseMenu : CanvasLayer
-@export var mainMenu : CanvasLayer
-
 var optionsMenuEnabled : bool = false
+
+const INPUT_BUTTON_MIN_SIZE = Vector2(110, 50)
 
 # ------------------------ READY ------------------------
 func _ready():
@@ -45,6 +44,19 @@ func _ready():
 	SettingsManager.videoChanged.connect(_on_video_updated)
 	SettingsManager.keybindChanged.connect(_on_keybind_updated)
 
+func _process(delta: float) -> void:
+	if controls.visible:
+		for child in inputList.get_children():
+			if child is HBoxContainer:
+				if child.custom_minimum_size != INPUT_BUTTON_MIN_SIZE:
+					child.find_child("InputButton").custom_minimum_size = INPUT_BUTTON_MIN_SIZE
+				else:
+					pass
+			else:
+				pass
+	else:
+		pass
+
 # ------------------------ STATE ------------------------
 func setOptionsMenu(value : float):
 	visible = value
@@ -57,7 +69,7 @@ func createInputsList():
 	# Clear old boxes
 	for inputBoxIndex in inputList.get_children():
 		inputBoxIndex.queue_free()
-
+		
 	for action in inputActions:
 		var inputBox = inputKeybindBox.instantiate()
 		var actionLabel = inputBox.find_child("ActionLabel")
@@ -108,7 +120,7 @@ func _on_reset_button_pressed():
 			SettingsManager.emit_signal("keybindChanged", action, ev)
 		else:
 			pass
-
+		
 	# Rebuild UI for this OptionsMenu instance
 	createInputsList()
 
@@ -135,7 +147,7 @@ func _on_option_button_item_selected(ind: int):
 
 # ------------------------ AUDIO ------------------------
 func _on_check_box_pressed():
-	SettingsManager.setMute($TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption/CheckBox.button_pressed)
+	SettingsManager.setMute($TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders/MuteOption/CheckBox.button_pressed)
 
 # ------------------------ SYNC ------------------------
 func syncUiWithSettings():
@@ -150,7 +162,7 @@ func syncUiWithSettings():
 			pass
 
 	# Mute checkbox
-	$TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption/CheckBox.button_pressed = SettingsManager.muted
+	$TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders/MuteOption/CheckBox.button_pressed = SettingsManager.muted
 
 	# Resolution + fullscreen
 	for i in resList.keys():
@@ -170,7 +182,7 @@ func _on_volume_updated(busIndex: int, busName: String, soundValue: float):
 			pass
 
 func _on_mute_updated(muted: bool):
-	$TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption/CheckBox.button_pressed = muted
+	$TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders/MuteOption/CheckBox.button_pressed = muted
 	AudioServer.set_bus_mute(masterBusIndex, false if muted else true)
 
 func _on_video_updated(fullscreen: bool, resolution: Vector2i):

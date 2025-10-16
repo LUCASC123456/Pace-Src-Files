@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bdhpuj7itpv6j"]
+[gd_scene load_steps=19 format=3 uid="uid://bdhpuj7itpv6j"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/OptionsMenuScript.gd" id="1_bupa7"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/InputManagerScript.gd" id="2_dr6kr"]
 [ext_resource type="FontFile" uid="uid://fvvmfktas1mg" path="res://Arts/Fonts/Ranga-Bold.ttf" id="3_4rgr8"]
 [ext_resource type="Script" path="res://Scripts/PlayerCharacter/UI/VolumeManagementScript.gd" id="4_ss2nf"]
+[ext_resource type="Texture2D" uid="uid://bqccn0sqc8u6u" path="res://Arts/Textures/CheckboxChecked.png" id="5_ip3rh"]
+[ext_resource type="Texture2D" uid="uid://dbb31s05liman" path="res://Arts/Textures/CheckboxUnchecked.png" id="6_sawbo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06xsy"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -108,7 +110,7 @@ size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_4rgr8")
 theme_override_font_sizes/font_size = 50
-text = "INPUTS : "
+text = "INPUTS: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -181,7 +183,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_4rgr8")
 theme_override_font_sizes/font_size = 50
-text = "FULLSCREEN :"
+text = "FULLSCREEN:"
 
 [node name="VSeparator" type="VSeparator" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/FullscreenOption"]
 modulate = Color(1, 1, 1, 0)
@@ -192,6 +194,8 @@ theme_override_constants/separation = 100
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_d2byy")
+theme_override_icons/checked = ExtResource("5_ip3rh")
+theme_override_icons/unchecked = ExtResource("6_sawbo")
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -206,14 +210,15 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_4rgr8")
 theme_override_font_sizes/font_size = 50
-text = "RESOLUTION :"
+text = "RESOLUTION:"
 
 [node name="VSeparator" type="VSeparator" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 70
+theme_override_constants/separation = 105
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption"]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_vertical = 4
 
@@ -241,7 +246,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_4rgr8")
 theme_override_font_sizes/font_size = 50
-text = "MAIN VOLUME :"
+text = "MAIN VOLUME:"
 justification_flags = 131
 
 [node name="MusicVolumeLabel" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
@@ -249,7 +254,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_4rgr8")
 theme_override_font_sizes/font_size = 50
-text = "MUSIC VOLUME :"
+text = "MUSIC VOLUME:"
 justification_flags = 131
 
 [node name="SoundVolumeLabel" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
@@ -257,38 +262,25 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_4rgr8")
 theme_override_font_sizes/font_size = 50
-text = "SOUND VOLUME :"
+text = "SOUND VOLUME:"
 justification_flags = 131
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 35
+theme_override_constants/separation = 50
 
-[node name="MuteOption" type="HBoxContainer" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
+[node name="MuteLabel" type="Label" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.831373, 0.231373, 1)
 theme_override_fonts/font = ExtResource("3_4rgr8")
 theme_override_font_sizes/font_size = 50
-text = "MUTE :"
-
-[node name="VSeparator" type="VSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 70
-
-[node name="CheckBox" type="CheckBox" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ylopc")
+text = "MUTE:"
 
 [node name="HSeparator" type="VSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 100
 
 [node name="VolumesSliders" type="VBoxContainer" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -341,6 +333,21 @@ value = 1.0
 script = ExtResource("4_ss2nf")
 busName = "Sound"
 
+[node name="HSeparator4" type="HSeparator" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="MuteOption" type="HBoxContainer" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders/MuteOption"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ylopc")
+theme_override_icons/checked = ExtResource("5_ip3rh")
+theme_override_icons/unchecked = ExtResource("6_sawbo")
+
 [node name="BackButton" type="Button" parent="."]
 custom_minimum_size = Vector2(200, 0)
 offset_left = 30.0
@@ -365,6 +372,6 @@ text = "	BACK"
 [connection signal="pressed" from="TabContainer/CONTROLS/Control/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="TabContainer/VIDEO/CenterContainer/VBoxContainer/FullscreenOption/FullscreenCheckBox" to="." method="_on_fullscreen_check_box_pressed"]
 [connection signal="item_selected" from="TabContainer/VIDEO/CenterContainer/VBoxContainer/ResolutionOption/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="pressed" from="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumeLabels/MuteOption/CheckBox" to="." method="_on_check_box_pressed"]
 [connection signal="value_changed" from="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders/MainVolumeSlider" to="." method="_on_main_volume_slider_value_changed"]
+[connection signal="pressed" from="TabContainer/AUDIO/CenterContainer/VBoxContainer/VolumesSliders/MuteOption/CheckBox" to="." method="_on_check_box_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
