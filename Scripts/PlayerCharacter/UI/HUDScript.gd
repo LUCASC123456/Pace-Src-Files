@@ -31,10 +31,25 @@ func displayDistance():
 
 func displayTime():
 	var objectives = get_tree().current_scene.get_node("Map/Objectives")
-	var seconds = int(objectives.get_node("CheckpointTimer").time_left) % 60
-	var minutes = int(floor(objectives.get_node("CheckpointTimer").time_left/60))
-	var hours = int(floor(objectives.get_node("CheckpointTimer").time_left/3600))
-	timerUI.set_text(str(int(hours)) + ":" + str(int(minutes)) + ":" + str(int(seconds)))
+	var seconds = str(int(objectives.get_node("CheckpointTimer").time_left) % 60)
+	var minutes = str(int(floor(objectives.get_node("CheckpointTimer").time_left/60)))
+	var hours = str(int(floor(objectives.get_node("CheckpointTimer").time_left/3600)))
+	var doubleDigitCount = 2
+	
+	if seconds.length() < doubleDigitCount && minutes.length() < doubleDigitCount && hours.length() < doubleDigitCount:
+		timerUI.set_text("0" + hours + ":" + "0" + minutes + ":" + "0" + seconds)
+	elif seconds.length() >= doubleDigitCount && minutes.length() < doubleDigitCount && hours.length() < doubleDigitCount:
+		timerUI.set_text("0" + hours + ":" + "0" + minutes + ":" + seconds)
+	elif seconds.length() < doubleDigitCount && minutes.length() >= doubleDigitCount && hours.length() < doubleDigitCount:
+		timerUI.set_text("0" + hours + ":" + minutes + ":" + "0" + seconds)
+	elif seconds.length() < doubleDigitCount && minutes.length() < doubleDigitCount && hours.length() >= doubleDigitCount:
+		timerUI.set_text(hours + ":" + "0" + minutes + ":" + "0" + seconds)
+	elif seconds.length() >= doubleDigitCount && minutes.length() >= doubleDigitCount && hours.length() < doubleDigitCount:
+		timerUI.set_text("0" + hours + ":" + minutes + ":" + seconds)
+	elif seconds.length() < doubleDigitCount && minutes.length() >= doubleDigitCount && hours.length() >= doubleDigitCount:
+		timerUI.set_text(hours + ":" + minutes + ":" + "0" + seconds)
+	else:
+		timerUI.set_text(hours + ":" + minutes + ":" + seconds)
 
 func displayHealth():
 	healthUI.value = player.remainingHealth

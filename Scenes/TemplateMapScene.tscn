@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://oj3blpxqf1bl"]
 
-[ext_resource type="PackedScene" uid="uid://bttbo1cpl3olx" path="res://Scenes/City.blend" id="1_gemf2"]
+[ext_resource type="PackedScene" uid="uid://6iycewux48gj" path="res://Scenes/City.glb" id="1_iq4oo"]
 [ext_resource type="Texture2D" uid="uid://cosanfwg57e4y" path="res://Arts/Textures/kenney_prototype_textures/orange/texture_03.png" id="2_v37ox"]
 [ext_resource type="Script" path="res://Scripts/Others/CheckPointManagerScript.gd" id="4_8hsqg"]
 [ext_resource type="Script" path="res://Scripts/Others/JumppadScript.gd" id="4_nyumb"]
@@ -85,7 +85,7 @@ shadow_enabled = true
 [node name="Map" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -1.5, 0)
 
-[node name="City" parent="Map" instance=ExtResource("1_gemf2")]
+[node name="City" parent="Map" instance=ExtResource("1_iq4oo")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="WalkableWalls" type="Node3D" parent="Map"]
@@ -506,7 +506,7 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("8_d5jld")
 
 [node name="CheckpointTimer" type="Timer" parent="Map/Objectives"]
-wait_time = 30.0
+wait_time = 180.0
 one_shot = true
 
 [node name="Camera" type="Node3D" parent="."]

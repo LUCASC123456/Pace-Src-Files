@@ -48,7 +48,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 200
 
 [node name="InputButton" type="Button" parent="."]
-custom_minimum_size = Vector2(110, 50)
+custom_minimum_size = Vector2(110, 100)
 layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -62,5 +62,4 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_4jno0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_bhwl4")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_7wbxs")
 text = "KEY"
-autowrap_mode = 3
-clip_text = true
+autowrap_mode = 1
